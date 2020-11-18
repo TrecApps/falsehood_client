@@ -13,6 +13,8 @@ import { MarkedPipe } from './resources/marked.pipe';
 
 import { TokenService } from './services/token.service';
 import { InstitutionComponent } from './components/institution/institution.component';
+import { FalsehoodSearchComponent } from './components/falsehood-search/falsehood-search.component';
+import { PublicFalsehoodSearchComponent } from './components/public-falsehood-search/public-falsehood-search.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { InstitutionComponent } from './components/institution/institution.compo
     WelcomeComponent,
     RegionComponent,
     MarkedPipe,
-    InstitutionComponent
+    InstitutionComponent,
+    FalsehoodSearchComponent,
+    PublicFalsehoodSearchComponent
   ],
   imports: [
     BrowserModule,
