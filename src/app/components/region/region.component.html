@@ -1,0 +1,36 @@
+<h2>Region</h2>
+
+<div *ngIf="!createNew">
+
+<div>
+  <label>Search Region</label>
+</div>
+
+<div *ngIf="mainRegion">
+  <h3>Title: {{mainRegion.region.name}}</h3>
+
+  <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
+  <button class="btn bg-info" (click)="setMode(2)">Public Falsehoods</button>
+
+  <div *ngIf="mode==1" [innerHTML]="mainRegion.contents | marked">
+
+  </div>
+  <div *ngIf="mode==2">
+
+  </div>
+</div>
+
+</div>
+
+<div>
+
+  <textarea [(ngModel)]="editContents"></textarea>
+
+
+  <div [innerHTML]="editContents | marked"></div>
+
+
+  <button class="btn bg-info" (click)="stopCreateNew()">
+
+  </button>
+</div>

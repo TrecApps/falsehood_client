@@ -1,0 +1,36 @@
+<h2>Institution</h2>
+
+<div *ngIf="!createNew">
+
+<div>
+  <label>Search Institution</label>
+</div>
+
+<div *ngIf="mainInst">
+  <h3>Title: {{mainInst.institution.name}}</h3>
+
+  <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
+  <button class="btn bg-info" (click)="setMode(2)">Public Falsehoods</button>
+
+  <div *ngIf="mode==1" [innerHTML]="mainInst.contents | marked">
+
+  </div>
+  <div *ngIf="mode==2">
+
+  </div>
+</div>
+
+</div>
+
+<div>
+
+  <textarea [(ngModel)]="editContents"></textarea>
+
+
+  <div [innerHTML]="editContents | marked"></div>
+
+
+  <button class="btn bg-info" (click)="stopCreateNew()">
+
+  </button>
+</div>

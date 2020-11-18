@@ -1,0 +1,66 @@
+<div *ngIf="!setToCreate" width="100%" class="form" >
+  <label id="Label">Username:</label>
+  <input id="input" type="text" [(ngModel)]="login.username"><br>
+  <label id="Label2">Password:</label>
+  <input id="input2" type="password" name="password" [(ngModel)]="login.password"><br>
+  <button class="btn btn-submit" (click)="submitLogin()">Submit</button>
+  <button class="btn btn-info" (click)="redirect()" id="redirectButton">Create Trec-Account</button>
+</div>
+
+<div *ngIf="setToCreate" width="100%" class="form">
+  <label>User-name (Between 6 and 30 characters):</label>
+  <input [(ngModel)]="create.username" required class="bg-info" id="userField" type="text">
+  <br>
+  <label>Email:</label>
+  <input [(ngModel)]="create.mainEmail" required class="bg-info" type="email">
+  <br>
+  <label>Password:</label>
+  <input [(ngModel)]="create.password" required class="bg-info" type="password" #password1 (input)="comparePasswords()">
+  <br>
+  <label>Confirm Password:</label>
+  <input required class="bg-info" type="password" #password2 (input)="comparePasswords()">
+  <h5 class="bg-danger" id="passWarning" *ngIf="!canSubmitCreate"> Passwords must match and be 8+ characters in length!</h5>
+  
+
+  <label>Backup Email:</label>
+  <input [(ngModel)]="create.backupEmail" required class="bg-info" type="email">
+  <br>
+
+  <label>First Name:</label>
+  <input [(ngModel)]="create.firstName" required class="bg-info" type="text">
+  <br>
+
+  <label>Last Name:</label>
+  <input [(ngModel)]="create.lastName" required class="bg-info" type="text">
+  <br>
+
+  <label>Birthday:</label>
+  <input [(ngModel)]="create.birthday" required class="bg-info" type="date">
+  <br>
+
+  <label>Fill Security Options</label>
+  <input type="checkbox" [(ngModel)]="showSecurityOptions">
+
+  <div *ngIf="showSecurityOptions">
+    <label>Password Reset:</label>
+    <input [(ngModel)]="create.passwordMonthReset" required class="bg-info" type="number" min="0" max="30">
+    <br>
+
+    <label>Token Expires after </label>
+    <input [(ngModel)]="create.timeForValidToken" required class="bg-info" type="number" min="0" max="30">
+    <label> 10 minute intervals</label>
+    <br>
+
+    <label>Maximum Failed Login Attempts (per Hour):</label>
+    <input [(ngModel)]="create.maxLoginAttempts" required class="bg-info" type="number" min="0" max="30">
+    <br>
+
+    <label>Time to Lock account (10 Minutes):</label>
+    <input [(ngModel)]="create.lockTime" required class="bg-info" type="number" min="0" max="30">
+  </div>
+
+
+  <button class="btn btn-submit" (click)="submitCreate()">Submit</button>
+  
+  <button class="btn btn-info" (click)="redirect()" id="redirectButton">Go To Login</button>
+</div>
