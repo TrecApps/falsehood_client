@@ -1,0 +1,35 @@
+<h2>Media Outlets</h2>
+
+<div *ngIf="!createNew">
+
+    <div>
+        <label>Search Public Figure</label>
+    </div>
+
+    <div *ngIf="mainOutlet">
+        <h3>Title: {{mainOutlet.outlet.name}}</h3>
+    
+        <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
+        <button class="btn bg-info" (click)="setMode(2)">Media Falsehoods</button>
+
+        <div *ngIf="mode==1" [innerHTML]="mainOutlet.text | marked"></div>
+
+        <div *ngIf="mode==2">
+            <app-falsehood-search></app-falsehood-search>
+        </div>
+    </div>
+
+</div>
+
+<div>
+
+    <textarea [(ngModel)]="editContents"></textarea>
+  
+  
+    <div [innerHTML]="editContents | marked"></div>
+  
+  
+    <button class="btn bg-info" (click)="stopCreateNew()">
+  
+    </button>
+  </div>

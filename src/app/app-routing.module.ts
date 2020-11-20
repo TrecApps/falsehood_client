@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegionComponent } from './components/region/region.component';
 import { InstitutionComponent } from './components/institution/institution.component';
 import { PublicFigureComponent } from './components/public-figure/public-figure.component';
+import { MediaOutletComponent } from './components/media-outlet/media-outlet.component';
 
 const routes: Routes = [
 	{ path: 'Welcome', component: WelcomeComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: 'Regions', component: RegionComponent },
     { path: 'Institution', component: InstitutionComponent},
     { path: 'PublicFigure', component: PublicFigureComponent},
+    { path: 'MediaOutlet', component: MediaOutletComponent},
     { path: '',   redirectTo: '/Welcome', pathMatch: 'full'}
 ];
 

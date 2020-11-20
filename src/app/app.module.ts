@@ -16,6 +16,7 @@ import { InstitutionComponent } from './components/institution/institution.compo
 import { FalsehoodSearchComponent } from './components/falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from './components/public-falsehood-search/public-falsehood-search.component';
 import { PublicFigureComponent } from './components/public-figure/public-figure.component';
+import { MediaOutletComponent } from './components/media-outlet/media-outlet.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PublicFigureComponent } from './components/public-figure/public-figure.
     InstitutionComponent,
     FalsehoodSearchComponent,
     PublicFalsehoodSearchComponent,
-    PublicFigureComponent
+    PublicFigureComponent,
+    MediaOutletComponent
   ],
   imports: [
     BrowserModule,
