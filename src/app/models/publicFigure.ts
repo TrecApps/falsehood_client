@@ -1,6 +1,6 @@
 export class PublicFigure{
     id: Number;
-    firstname: String;
-    middleNames: String;
-    lastName: String;
+    firstname: string;
+    middleNames: string;
+    lastName: string;
 };

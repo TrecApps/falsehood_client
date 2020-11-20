@@ -24,7 +24,7 @@ export class PublicFalsehood {
     official: PublicFigure;
     officialType: Number;
     region:Region;
-    insititution: Institution;
+    institution: Institution;
     severity: Number;
     dateMade: Date;
 }

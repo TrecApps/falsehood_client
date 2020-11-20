@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
 import {Region, RegionEntry } from '../../models/region';
 
 import { MarkedPipe } from '../../resources/marked.pipe';
+import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 
 @Component({
   selector: 'app-region',
@@ -18,6 +20,7 @@ export class RegionComponent implements OnInit {
 
   editContents: String;
 
+  @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent
   constructor() {
     this.mode = 0;
     this.createNew = false;
@@ -30,8 +33,17 @@ export class RegionComponent implements OnInit {
   ngOnInit() {
   }
 
+
   setMode(m: Number) {
     this.mode = m;
+
+    if(this.mode == 2 && this.mainRegion) {
+      let searchObj = new SearchPublicFalsehood();
+      searchObj.regions = [this.mainRegion.region];
+
+      this.searchComponent.initializeList(searchObj);
+    }
+
   }
 
   stopCreateNew() {
