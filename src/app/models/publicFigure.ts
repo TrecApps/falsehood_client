@@ -4,3 +4,8 @@ export class PublicFigure{
     middleNames: string;
     lastName: string;
 };
+
+export class PublicFigureEntry {
+	figure: PublicFigure;
+    text: string;   
+}

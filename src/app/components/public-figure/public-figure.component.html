@@ -1,0 +1,39 @@
+<h2>Public Figure</h2>
+
+<div *ngIf="!createNew">
+
+    <div>
+        <label>Search Public Figure</label>
+    </div>
+
+    <div *ngIf="mainFigure">
+        <h3>Title: {{mainFigure.figure.firstname + mainFigure.figure.middleNames + mainFigure.figure.lastName}}</h3>
+    
+        <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
+        <button class="btn bg-info" (click)="setMode(2)">Public Falsehoods</button>
+        <button class="btn bg-info" (click)="setMode(3)">Media Falsehoods</button>
+
+        <div *ngIf="mode==1" [innerHTML]="mainFigure.text | marked"></div>
+
+        <div *ngIf="mode==2">
+            <app-public-falsehood-search></app-public-falsehood-search>
+        </div>
+        <div *ngIf="mode==3">
+            <app-falsehood-search></app-falsehood-search>
+        </div>
+    </div>
+
+</div>
+
+<div>
+
+    <textarea [(ngModel)]="editContents"></textarea>
+  
+  
+    <div [innerHTML]="editContents | marked"></div>
+  
+  
+    <button class="btn bg-info" (click)="stopCreateNew()">
+  
+    </button>
+  </div>

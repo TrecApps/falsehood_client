@@ -17,7 +17,7 @@ export class InstitutionComponent implements OnInit {
   createNew: boolean;
 
   editContents: String;
-  @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent
+  @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
   constructor() {
     this.mode = 0;
     this.createNew = false;

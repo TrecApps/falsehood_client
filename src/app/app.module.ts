@@ -15,6 +15,7 @@ import { TokenService } from './services/token.service';
 import { InstitutionComponent } from './components/institution/institution.component';
 import { FalsehoodSearchComponent } from './components/falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from './components/public-falsehood-search/public-falsehood-search.component';
+import { PublicFigureComponent } from './components/public-figure/public-figure.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PublicFalsehoodSearchComponent } from './components/public-falsehood-se
     MarkedPipe,
     InstitutionComponent,
     FalsehoodSearchComponent,
-    PublicFalsehoodSearchComponent
+    PublicFalsehoodSearchComponent,
+    PublicFigureComponent
   ],
   imports: [
     BrowserModule,
