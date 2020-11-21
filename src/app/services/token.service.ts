@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { ReturnAccountObj } from '../models/return-account-obj';
 import { LoginObj } from '../models/login-obj';
@@ -14,8 +14,13 @@ export class TokenService {
 
   userInfo: ReturnAccountObj;
 
+  credit: number;
+
+  httpHeaders: HttpHeaders;
+
   constructor(private httpClient: HttpClient) {
     this.userInfo = new ReturnAccountObj();
+    this.credit = 0;
    }
 
   async login(login: LoginObj): Promise<boolean> {
@@ -25,10 +30,18 @@ export class TokenService {
       then((resp: ReturnAccountObj) => {
         this.userInfo = resp;
 
+        this.httpHeaders = new HttpHeaders({
+          Authorization: this.userInfo.token.toString()
+        })
+
         ret = true;
       }).catch(() => {
         ret = false;
       });
+
+      await this.httpClient.get(environment.FALSEHOOD_URL + "account/Details", {headers: this.httpHeaders}).toPromise().
+        then((resp: number) => {this.credit = resp;});
+
       return ret;
   }
 
