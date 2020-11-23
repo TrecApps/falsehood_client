@@ -17,6 +17,7 @@ import { FalsehoodSearchComponent } from './components/falsehood-search/falsehoo
 import { PublicFalsehoodSearchComponent } from './components/public-falsehood-search/public-falsehood-search.component';
 import { PublicFigureComponent } from './components/public-figure/public-figure.component';
 import { MediaOutletComponent } from './components/media-outlet/media-outlet.component';
+import { FalsehoodComponent } from './components/falsehood/falsehood.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MediaOutletComponent } from './components/media-outlet/media-outlet.com
     FalsehoodSearchComponent,
     PublicFalsehoodSearchComponent,
     PublicFigureComponent,
-    MediaOutletComponent
+    MediaOutletComponent,
+    FalsehoodComponent
   ],
   imports: [
     BrowserModule,
