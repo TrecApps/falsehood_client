@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { TokenService } from 'src/app/services/token.service';
 import {Region, RegionEntry } from '../../models/region';
 
 import { MarkedPipe } from '../../resources/marked.pipe';
@@ -20,14 +21,16 @@ export class RegionComponent implements OnInit {
 
   editContents: String;
 
+  token: TokenService;
+
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent
-  constructor() {
+  constructor(token: TokenService) {
     this.mode = 0;
     this.createNew = false;
 
     this.editContents = "";
     this.mainRegion = new RegionEntry();
-
+    this.token = token;
    }
 
   ngOnInit() {

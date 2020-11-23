@@ -22,7 +22,7 @@
 
 </div>
 
-<div>
+<div *ngIf="token.credit >= 35">
 
   <textarea [(ngModel)]="editContents"></textarea>
 

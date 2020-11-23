@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
 import { PublicFigureEntry } from 'src/app/models/publicFigure';
+import { TokenService } from 'src/app/services/token.service';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 
@@ -19,10 +20,13 @@ export class PublicFigureComponent implements OnInit {
   createNew: boolean;
 
   editContents: String;
+  token: TokenService;
 
   @ViewChild(PublicFalsehoodSearchComponent) publicSearchComponent: PublicFalsehoodSearchComponent;
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
-  constructor() { }
+  constructor(token: TokenService) { 
+    this.token = token;
+  }
 
   ngOnInit(): void {
   }

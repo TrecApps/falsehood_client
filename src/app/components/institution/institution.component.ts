@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { TokenService } from 'src/app/services/token.service';
 import { InstitutionEntry } from '../../models/institution';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 
@@ -18,13 +19,15 @@ export class InstitutionComponent implements OnInit {
 
   editContents: String;
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
-  constructor() {
+  token: TokenService;
+  constructor(token: TokenService) {
     this.mode = 0;
     this.createNew = false;
 
     this.editContents = "";
     this.mainInst = new InstitutionEntry();
 
+    this.token = token;
    }
 
   ngOnInit() {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
 import { MediaOutletEntry } from 'src/app/models/mediaOutlet';
+import { TokenService } from 'src/app/services/token.service';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 
 @Component({
@@ -18,8 +19,11 @@ export class MediaOutletComponent implements OnInit {
   editContents: String;
 
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
+  token: TokenService;
 
-  constructor() { }
+  constructor(token: TokenService) {
+    this.token = token;
+   }
 
   ngOnInit(): void {
   }
