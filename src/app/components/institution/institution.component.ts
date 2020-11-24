@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { SearchService } from 'src/app/services/search.service';
 import { TokenService } from 'src/app/services/token.service';
-import { InstitutionEntry } from '../../models/institution';
+import { Institution, InstitutionEntry } from '../../models/institution';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 
 @Component({
@@ -20,7 +21,11 @@ export class InstitutionComponent implements OnInit {
   editContents: String;
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
   token: TokenService;
-  constructor(token: TokenService) {
+
+  searchInst: Institution[];
+  searchText: String;
+
+  constructor(token: TokenService, private search: SearchService) {
     this.mode = 0;
     this.createNew = false;
 
@@ -28,6 +33,9 @@ export class InstitutionComponent implements OnInit {
     this.mainInst = new InstitutionEntry();
 
     this.token = token;
+
+    this.searchInst = [];
+    this.searchText = "";
    }
 
   ngOnInit() {
@@ -48,6 +56,22 @@ export class InstitutionComponent implements OnInit {
   stopCreateNew() {
     this.editContents = "";
     this.createNew=false;
+  }
+
+  async onSearchUpdate(event:any){
+    let p = this.search.searchInstitutions(event.target.value)
+    p.then((inst: Institution[])=> {
+      this.searchInst = inst;
+    });
+  }
+
+  async getInst(id: Number) {
+    let p = this.search.getInstitution(id);
+    p.then((inst: InstitutionEntry)=> {
+      this.mainInst = inst;
+    });
+
+    this.searchText = "";
   }
 
 }

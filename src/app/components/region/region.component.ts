@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { SearchService } from 'src/app/services/search.service';
 import { TokenService } from 'src/app/services/token.service';
 import {Region, RegionEntry } from '../../models/region';
 
@@ -23,14 +24,21 @@ export class RegionComponent implements OnInit {
 
   token: TokenService;
 
+  searchText: String;
+
+  searchRegion: Region[];
+
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent
-  constructor(token: TokenService) {
+  constructor(token: TokenService, private search: SearchService) {
     this.mode = 0;
     this.createNew = false;
 
     this.editContents = "";
     this.mainRegion = new RegionEntry();
     this.token = token;
+
+    this.searchText = "";
+    this.searchRegion = [];
    }
 
   ngOnInit() {
@@ -52,6 +60,22 @@ export class RegionComponent implements OnInit {
   stopCreateNew() {
     this.editContents = "";
     this.createNew=false;
+  }
+
+  async onSearchUpdate(event:any){
+    let p = this.search.searchRegions(event.target.value)
+    p.then((regions: Region[])=> {
+      this.searchRegion = regions;
+    });
+  }
+
+  async getRegion(id: Number) {
+    let p = this.search.getRegion(id);
+    p.then((region: RegionEntry)=> {
+      this.mainRegion = region;
+    });
+
+    this.searchText = "";
   }
 
 }

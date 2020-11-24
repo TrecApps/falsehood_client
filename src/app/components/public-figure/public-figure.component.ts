@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
-import { PublicFigureEntry } from 'src/app/models/publicFigure';
+import { PublicFigure, PublicFigureEntry } from 'src/app/models/publicFigure';
+import { SearchService } from 'src/app/services/search.service';
 import { TokenService } from 'src/app/services/token.service';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
@@ -22,10 +23,16 @@ export class PublicFigureComponent implements OnInit {
   editContents: String;
   token: TokenService;
 
+  searchText: String;
+  searchFigures: PublicFigure[];
+
   @ViewChild(PublicFalsehoodSearchComponent) publicSearchComponent: PublicFalsehoodSearchComponent;
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
-  constructor(token: TokenService) { 
+  constructor(token: TokenService, private search: SearchService) { 
     this.token = token;
+
+    this.searchFigures = [];
+    this.searchText = "";
   }
 
   ngOnInit(): void {
@@ -50,6 +57,22 @@ export class PublicFigureComponent implements OnInit {
   stopCreateNew() {
     this.editContents = "";
     this.createNew=false;
+  }
+
+  async onSearchUpdate(event:any){
+    let p = this.search.searchPublicFigures(event.target.value)
+    p.then((figures: PublicFigure[])=> {
+      this.searchFigures = figures;
+    });
+  }
+
+  async getFigure(id: Number) {
+    let p = this.search.getPublicFigure(id);
+    p.then((figure: PublicFigureEntry)=> {
+      this.mainFigure = figure;
+    });
+
+    this.searchText = "";
   }
 
 }

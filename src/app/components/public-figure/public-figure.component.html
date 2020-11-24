@@ -4,6 +4,11 @@
 
     <div>
         <label>Search Public Figure</label>
+        <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Public Figure">
+
+        <ul *ngFor="let figure of searchFigures">
+          <li (click)="getFigure(figure.id)">Public Figure: {{figure.firstname + figure.middleNames + figure.lastName}}</li>
+        </ul>
     </div>
 
     <div *ngIf="mainFigure">

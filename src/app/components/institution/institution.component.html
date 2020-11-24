@@ -4,6 +4,11 @@
 
 <div>
   <label>Search Institution</label>
+  <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Institution">
+
+  <ul *ngFor="let inst of searchInst">
+    <li (click)="getInst(inst.id)">Institution: {{inst.name}}</li>
+  </ul>
 </div>
 
 <div *ngIf="mainInst">

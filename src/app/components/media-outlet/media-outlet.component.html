@@ -3,7 +3,12 @@
 <div *ngIf="!createNew">
 
     <div>
-        <label>Search Public Figure</label>
+        <label>Search Media Outlet</label>
+        <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Media Outlet">
+
+        <ul *ngFor="let outlet of searchOutlets">
+          <li (click)="getOutlet(outlet.outletId)">Public Figure: {{outlet.name}}, founded {{outlet.foundationYear}}</li>
+        </ul>
     </div>
 
     <div *ngIf="mainOutlet">

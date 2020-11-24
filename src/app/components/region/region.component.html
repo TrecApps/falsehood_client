@@ -4,6 +4,11 @@
 
 <div>
   <label>Search Region</label>
+  <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Region">
+
+  <ul *ngFor="let region of searchRegion">
+    <li (click)="getRegion(region.id)">Region: {{region.name}}</li>
+  </ul>
 </div>
 
 <div *ngIf="mainRegion">

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
-import { MediaOutletEntry } from 'src/app/models/mediaOutlet';
+import { MediaOutlet, MediaOutletEntry } from 'src/app/models/mediaOutlet';
+import { SearchService } from 'src/app/services/search.service';
 import { TokenService } from 'src/app/services/token.service';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 
@@ -18,11 +19,17 @@ export class MediaOutletComponent implements OnInit {
 
   editContents: String;
 
+  searchText: String;
+  searchOutlets: MediaOutlet[];
+
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
   token: TokenService;
 
-  constructor(token: TokenService) {
+  constructor(token: TokenService, private search: SearchService) {
     this.token = token;
+
+    this.searchOutlets = [];
+    this.searchText = "";
    }
 
   ngOnInit(): void {
@@ -42,6 +49,22 @@ export class MediaOutletComponent implements OnInit {
   stopCreateNew() {
     this.editContents = "";
     this.createNew=false;
+  }
+
+  async onSearchUpdate(event:any){
+    let p = this.search.searchMediaOutlets(event.target.value)
+    p.then((outlets: MediaOutlet[])=> {
+      this.searchOutlets = outlets;
+    });
+  }
+
+  async getOutlet(id: Number) {
+    let p = this.search.getMediaOutlet(id);
+    p.then((outlet: MediaOutletEntry)=> {
+      this.mainOutlet = outlet;
+    });
+
+    this.searchText = "";
   }
 
 }
