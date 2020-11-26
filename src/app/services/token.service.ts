@@ -23,6 +23,11 @@ export class TokenService {
     this.credit = 0;
    }
 
+  logout() {
+    this.userInfo = null;
+    this.credit = 0;
+  }
+
   async login(login: LoginObj): Promise<boolean> {
     let ret: boolean;
     await this.httpClient.post(environment.FALSEHOOD_URL + "account/LogIn", login).
