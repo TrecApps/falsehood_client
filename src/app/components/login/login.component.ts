@@ -3,6 +3,7 @@ import { TokenService } from 'src/app/services/token.service';
 
 import { LoginObj } from '../../models/login-obj';
 import { CreateUserObj } from '../../models/create-user-obj';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('password1') pass1: ElementRef;
   @ViewChild('password2') pass2: ElementRef;
 
-  constructor(private tokenService: TokenService) { 
+  constructor(private tokenService: TokenService, private router: Router) { 
     this.setToCreate = false;
     this.canSubmitCreate = false;
     this.showSecurityOptions = false;
@@ -38,6 +39,15 @@ export class LoginComponent implements OnInit {
 
   submitCreate() {
 
+    let p =this.tokenService.create(this.create);
+
+    p.then((worked:boolean) => {
+      if(!worked) {
+        alert("Create Did Not work!");
+      } else {
+        this.router.navigateByUrl("Welcome");
+      }
+    }).catch((reason) => {alert(reason)});
   }
 
   async submitLogin() {
@@ -49,7 +59,7 @@ export class LoginComponent implements OnInit {
         this.login.username = "";
       }
       if(await this.tokenService.login(this.login)) {
-
+        this.router.navigateByUrl("Welcome");
       }
       else {
 

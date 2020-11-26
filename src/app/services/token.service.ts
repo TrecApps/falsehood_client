@@ -26,22 +26,25 @@ export class TokenService {
   async login(login: LoginObj): Promise<boolean> {
     let ret: boolean;
     await this.httpClient.post(environment.FALSEHOOD_URL + "account/LogIn", login).
-      toPromise().
-      then((resp: ReturnAccountObj) => {
+     toPromise().then((resp: ReturnAccountObj) => {
         this.userInfo = resp;
 
         this.httpHeaders = new HttpHeaders({
           Authorization: this.userInfo.token.toString()
         })
-
+        console.log("Login Worked");
         ret = true;
-      }).catch(() => {
+      }).catch((reason) => {
+        console.log(reason);
         ret = false;
       });
 
+      if(ret) {
       await this.httpClient.get(environment.FALSEHOOD_URL + "account/Details", {headers: this.httpHeaders}).toPromise().
         then((resp: number) => {this.credit = resp;});
-
+      } else {
+        console.log("ogin DID NOT WORK!");
+      }
       return ret;
   }
 

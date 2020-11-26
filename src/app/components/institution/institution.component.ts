@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
 import { SearchService } from 'src/app/services/search.service';
+import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Institution, InstitutionEntry } from '../../models/institution';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
@@ -18,6 +19,7 @@ export class InstitutionComponent implements OnInit {
 
   createNew: boolean;
 
+  editName: String;
   editContents: String;
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
   token: TokenService;
@@ -25,7 +27,7 @@ export class InstitutionComponent implements OnInit {
   searchInst: Institution[];
   searchText: String;
 
-  constructor(token: TokenService, private search: SearchService) {
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService) {
     this.mode = 0;
     this.createNew = false;
 
@@ -51,6 +53,19 @@ export class InstitutionComponent implements OnInit {
       this.searchComponent.initializeList(searchObj);
     }
 
+  }
+
+  addNewInst() {
+    this.submitService.submitInstitution(this.editName, this.editContents).then((res)=>{
+      this.stopCreateNew();
+      if(res) {
+        alert("Successfully Submitted Institution Entry!");
+      }
+    });
+  }
+
+  startCreateNew() {
+    this.createNew = true;
   }
 
   stopCreateNew() {
