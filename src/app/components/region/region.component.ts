@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
 import { SearchService } from 'src/app/services/search.service';
+import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
 import {Region, RegionEntry } from '../../models/region';
 
@@ -20,6 +21,7 @@ export class RegionComponent implements OnInit {
 
   createNew: boolean;
 
+  editName: String;
   editContents: String;
 
   token: TokenService;
@@ -29,7 +31,7 @@ export class RegionComponent implements OnInit {
   searchRegion: Region[];
 
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent
-  constructor(token: TokenService, private search: SearchService) {
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService) {
     this.mode = 0;
     this.createNew = false;
 
@@ -55,6 +57,19 @@ export class RegionComponent implements OnInit {
       this.searchComponent.initializeList(searchObj);
     }
 
+  }
+
+  addNewReg() {
+    this.submitService.submitRegion(this.editName, this.editContents).then((res)=>{
+      this.stopCreateNew();
+      if(res) {
+        alert("Successfully Submitted Region Entry!");
+      }
+    });
+  }
+
+  startCreateNew() {
+    this.createNew = true;
   }
 
   stopCreateNew() {

@@ -3,6 +3,7 @@
 <div *ngIf="!createNew">
 
 <div>
+  <button *ngIf="token.credit >= 35" class="btn bg-info" (click)="startCreateNew()">Create New</button>
   <label>Search Region</label>
   <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Region">
 
@@ -27,14 +28,16 @@
 
 </div>
 
-<div *ngIf="token.credit >= 35">
+<div *ngIf="token.credit >= 35 && createNew">
 
+  <label>Name</label>
+  <input type="text" [(ngModel)]="editName">
   <textarea [(ngModel)]="editContents"></textarea>
 
 
   <div [innerHTML]="editContents | marked"></div>
 
-
+  <button class="btn bg-info" (click)="addNewReg()">Submit</button>
   <button class="btn bg-info" (click)="stopCreateNew()">
 
   </button>
