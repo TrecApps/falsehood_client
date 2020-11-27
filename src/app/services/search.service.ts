@@ -71,7 +71,7 @@ export class SearchService {
       .toPromise().then((inst: Institution[]) => {
         ret = inst;
       }).catch((reason)=> {
-        alert(reason);
+        alert(reason.message || reason.error.message);
       });
       return ret;
   }
@@ -82,7 +82,7 @@ export class SearchService {
     .toPromise().then((inst: InstitutionEntry) => {
       ret = inst;
     }).catch((reason)=> {
-      alert(reason);
+      alert(reason.message || reason.error.message);
     });
 
     return ret;
