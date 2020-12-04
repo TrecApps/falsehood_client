@@ -3,15 +3,16 @@
 <div *ngIf="!createNew">
 
     <div>
+        <button *ngIf="token.credit >= 35" class="btn bg-info" (click)="startCreateNew()">Create New</button>
         <label>Search Public Figure</label>
         <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Public Figure">
 
         <ul *ngFor="let figure of searchFigures">
-          <li (click)="getFigure(figure.id)">Public Figure: {{figure.firstname + figure.middleNames + figure.lastName}}</li>
+          <li (click)="getFigure(figure.id)">Public Figure: {{figure.firstname}} {{figure.middleNames}} {{figure.lastName}}</li>
         </ul>
     </div>
 
-    <div *ngIf="mainFigure">
+    <div *ngIf="mainFigure && mainFigure.figure">
         <h3>Title: {{mainFigure.figure.firstname + mainFigure.figure.middleNames + mainFigure.figure.lastName}}</h3>
     
         <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
@@ -30,15 +31,15 @@
 
 </div>
 
-<div *ngIf="token.credit >= 40">
+<div *ngIf="token.credit >= 40 && createNew">
 
+    <label>Name</label>
+    <input type="text" [(ngModel)]="editName">
     <textarea [(ngModel)]="editContents"></textarea>
   
   
     <div [innerHTML]="editContents | marked"></div>
   
-  
-    <button class="btn bg-info" (click)="stopCreateNew()">
-  
-    </button>
+    <button class="btn bg-info" (click)="addNewFig()">Submit</button>
+    <button class="btn bg-info" (click)="stopCreateNew()">Cancel</button>
   </div>

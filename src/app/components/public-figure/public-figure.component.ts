@@ -3,6 +3,7 @@ import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
 import { PublicFigure, PublicFigureEntry } from 'src/app/models/publicFigure';
 import { SearchService } from 'src/app/services/search.service';
+import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
@@ -20,6 +21,7 @@ export class PublicFigureComponent implements OnInit {
 
   createNew: boolean;
 
+  editName: String;
   editContents: String;
   token: TokenService;
 
@@ -28,11 +30,17 @@ export class PublicFigureComponent implements OnInit {
 
   @ViewChild(PublicFalsehoodSearchComponent) publicSearchComponent: PublicFalsehoodSearchComponent;
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
-  constructor(token: TokenService, private search: SearchService) { 
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService) { 
     this.token = token;
 
     this.searchFigures = [];
     this.searchText = "";
+    this.editContents = this.editName = "";
+
+    this.mainFigure = new PublicFigureEntry();
+
+    this.mode = 0;
+    this.createNew = false;
   }
 
   ngOnInit(): void {
@@ -56,7 +64,21 @@ export class PublicFigureComponent implements OnInit {
 
   stopCreateNew() {
     this.editContents = "";
+    this.editName = "";
     this.createNew=false;
+  }
+
+  addNewFig() {
+    this.submitService.submitPublicFigure(this.editName, this.editContents).then((res)=> {
+      this.stopCreateNew();
+      if(res) {
+        alert("Successfully Submitted Public Figure Entry!");
+      }
+    });
+  }
+
+  startCreateNew() {
+    this.createNew = true;
   }
 
   async onSearchUpdate(event:any){

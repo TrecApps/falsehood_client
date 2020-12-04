@@ -35,7 +35,7 @@ export class RegionComponent implements OnInit {
     this.mode = 0;
     this.createNew = false;
 
-    this.editContents = "";
+    this.editContents = this.editName = "";
     this.mainRegion = new RegionEntry();
     this.token = token;
 
@@ -74,6 +74,7 @@ export class RegionComponent implements OnInit {
 
   stopCreateNew() {
     this.editContents = "";
+    this.editName = "";
     this.createNew=false;
   }
 
