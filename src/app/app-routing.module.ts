@@ -8,6 +8,7 @@ import { InstitutionComponent } from './components/institution/institution.compo
 import { PublicFigureComponent } from './components/public-figure/public-figure.component';
 import { MediaOutletComponent } from './components/media-outlet/media-outlet.component';
 import { FalsehoodComponent } from './components/falsehood/falsehood.component';
+import { PublicFalsehoodComponent } from './components/public-falsehood/public-falsehood.component';
 
 const routes: Routes = [
 	{ path: 'Welcome', component: WelcomeComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'PublicFigure', component: PublicFigureComponent},
     { path: 'MediaOutlet', component: MediaOutletComponent},
     { path: 'Falsehoods', component: FalsehoodComponent},
+    { path: 'PublicFalsehoods', component: PublicFalsehoodComponent},
     { path: '',   redirectTo: '/Welcome', pathMatch: 'full'}
 ];
 
