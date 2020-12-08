@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SearchPublicFalsehood, FullPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { SearchPublicFalsehood, FullPublicFalsehood, PublicFalsehood } from 'src/app/models/publicFalsehood';
 import { Region } from 'src/app/models/region';
 import { Institution } from 'src/app/models/institution';
 import { PublicFigure } from 'src/app/models/publicFigure';
@@ -28,15 +28,7 @@ export class PublicFalsehoodComponent implements OnInit {
   doSearch:boolean;
 
   // Resources for creating new Falsehood
-  newFalsehoodOutlet: String;
-  newFalsehoodCLie: String;
-  newFalsehoodMT: Number;
-  newFalsehoodSev: Number;
-  newFalsehoodA1: String;
-  newFalsehoodA2: String;
-  newFalsehoodDate: Date;
-  
-  editContents: String;
+  newFalsehood: FullPublicFalsehood;
 
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
 
@@ -95,10 +87,27 @@ export class PublicFalsehoodComponent implements OnInit {
 
   startCreateNew() {
     this.createNew = true;
+    this.doSearch = false;
+    this.newFalsehood = new FullPublicFalsehood();
+    this.newFalsehood.metadata = new PublicFalsehood();
+    this.newFalsehood.metadata.id = null;
+    this.newFalsehood.metadata.status = 0;
+  }
+
+  setNewAuthor(out: PublicFigure) {
+    this.newFalsehood.metadata.official = out;
+  }
+
+  setNewInst(out: Institution) {
+    this.newFalsehood.metadata.institution = out;
+  }
+
+  setNewReg(out: Region) {
+    this.newFalsehood.metadata.region = out;
   }
 
   stopCreateNew() {
-    this.editContents = "";
+    this.newFalsehood = null;
     this.createNew=false;
   }
 

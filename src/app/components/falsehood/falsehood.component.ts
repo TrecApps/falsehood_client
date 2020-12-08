@@ -28,17 +28,6 @@ export class FalsehoodComponent implements OnInit {
   // Resources for creating new Falsehood
   newFalsehood: FullFalsehood;
 
-
-  newFalsehoodOutlet: String;
-  newFalsehoodCLie: String;
-  newFalsehoodMT: Number;
-  newFalsehoodSev: Number;
-  newFalsehoodA1: String;
-  newFalsehoodA2: String;
-  newFalsehoodDate: Date;
-
-  editContents: String;
-
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
 
   constructor(private searchService: SearchService) { 
@@ -90,6 +79,7 @@ export class FalsehoodComponent implements OnInit {
     this.newFalsehood = new FullFalsehood();
     this.newFalsehood.metadata = new Falsehood();
     this.newFalsehood.metadata.id = null;
+    this.newFalsehood.metadata.status = 0;
   }
 
   setNewAuthor(out: PublicFigure, t: number) {
@@ -105,7 +95,7 @@ export class FalsehoodComponent implements OnInit {
   }
 
   stopCreateNew() {
-    this.editContents = "";
+    this.newFalsehood = null;
     this.createNew=false;
   }
 
