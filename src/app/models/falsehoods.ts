@@ -8,10 +8,12 @@ export class FalsehoodSearchObject
     terms: String;
     to: Date;
     from: Date;
-    outlets: String[];
+    outlet: MediaOutlet;
     minimum: Severity;
     maximum: Severity;
-    authors: PublicFigure[];
+    author: PublicFigure;
+    numberOfEntries:number;
+    page: number;
 };
 
 export class Falsehood {

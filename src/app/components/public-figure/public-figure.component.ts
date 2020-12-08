@@ -56,7 +56,7 @@ export class PublicFigureComponent implements OnInit {
       this.publicSearchComponent.initializeList(searchObj);
     } else if(this.mode == 3 && this.mainFigure) {
       let searchObj = new FalsehoodSearchObject();
-      searchObj.authors = [this.mainFigure.figure];
+      searchObj.author = this.mainFigure.figure;
       this.searchComponent.initializeList(searchObj);
     }
 

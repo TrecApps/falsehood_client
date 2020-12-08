@@ -1,9 +1,94 @@
 <h2>Media Falsehoods</h2>
 
 <div *ngIf="!createNew">
-    <div>
-        <label>Search Falsehood</label>
+    <button class="btn bg-info" (click)="startCreateNew()">Create New Falsehood</button>
+    <button class="btn bg-info" (click)="startSearch()">Search Falsehoods</button><br>
+    <div *ngIf="doSearch">
+        <label>Search Falsehood</label><br>
+        <label>By Date?</label>
+
+        <!-- Handle Dates-->
+        <input type="radio" name="ByDate" (click)="setDateSearchMode(0)" id="noDates" clicked><label for="noDates">No Dates</label>
+        <input type="radio" name="ByDate" (click)="setDateSearchMode(1)" id="beforeDates" clicked><label for="beforeDates">Before Date</label>
+        <input type="radio" name="ByDate" (click)="setDateSearchMode(2)" id="betweenDates" clicked><label for="betweenDates">Between Dates</label>
+        <br>
+        <div *ngIf="dateSearchMode > 0">
+            <label>Latest Date</label>
+            <input type="date" [(ngModel)]="search.to">
+            <br>
+        </div>
+        <div *ngIf="dateSearchMode > 1">
+            <label>Earliest Date</label>
+            <input type="date" [(ngModel)]="search.from">
+            <br>
+        </div>
+
+        <!-- Handle Severity-->
+        <label>Minimum Severity</label>
+        <select [(ngModel)]="search.minimum">
+            <option value="null">[Not Selected]</option>
+            <option value="LIE">Lie</option>
+            <option value="OBJECTOVE_FALSEHOOD">Objective Falsehood</option>
+            <option value="MISLEADING">Omitted Information</option>
+            <option value="HYPOCRISY">Hypocracy</option>
+            <option value="SUBJECTIVE_FALSEHOOD">Subjective Falsehood</option>
+            <option value="FAULTY_LOGIC">Faulty Logic</option>
+        </select>
+        <br>
+        <label>Maximum Severity</label>
+        <select [(ngModel)]="search.maximum">
+            <option value="null">[Not Selected]</option>
+            <option value="LIE">Lie</option>
+            <option value="OBJECTOVE_FALSEHOOD">Objective Falsehood</option>
+            <option value="MISLEADING">Omitted Information</option>
+            <option value="HYPOCRISY">Hypocracy</option>
+            <option value="SUBJECTIVE_FALSEHOOD">Subjective Falsehood</option>
+            <option value="FAULTY_LOGIC">Faulty Logic</option>
+        </select>
+        <br>
+
+        <!--Media Outlet-->
+        <label>By Outlet</label>
+        <p>{{search.outlet}}</p>
+        <input type="search" (change)="onSearchOutlet($event)" [(ngModel)]="searchOutlet" placeholder="Search Media Outlet">
+
+        <ul *ngFor="let outlet of outletList">
+          <li (click)="setOutlet(outlet)">Media Outlet: {{outlet.name}}, founded {{outlet.foundationYear}}</li>
+        </ul>
+
+        <div *ngIf="search.outlet">
+            <h6>Selected Outlet: {{search.outlet.name}} from {{search.outlet.foundationYear}}</h6>
+            <button class="btn bg-info" (click)="setOutlet(null)">Clear Outlet</button>
+        </div>
+        <div *ngIf="!search.outlet">
+            <h6>No Outlet Selected!</h6>
+        </div>
+
+        <!--Public Official-->
+        <br>
+        <label>By Author (public Official)</label>
+        <input type="search" (change)="onSearchAuthor($event)" [(ngModel)]="searchAuthor" placeholder="Search Author (public Figure)">
+
+        <ul *ngFor="let author of authorList">
+          <li (click)="setAuthor(author)">Public Figure: {{author.firstname}} {{author.middleNames}} {{author.lastName}}</li>
+        </ul>
+
+        <div *ngIf="search.author">
+            <h6>Selected Author: {{search.author.firstname}} {{search.author.middleNames}} {{search.author.lastName}}</h6>
+            <button class="btn bg-info" (click)="setAuthor(null)">Clear Author</button>
+        </div>
+        <div *ngIf="!search.author">
+            <h6>No Author Selected!</h6>
+        </div>
+        <br>
+        <label>Page Number</label>
+        <input type="number" min="0" [(ngModel)]="search.page"> <br>
+        <label>Page Size</label>
+        <input type="number" min="1" [(ngModel)]="search.numberOfEntries"> <br>
+        <button class="btn bg-info" (click)="submitSearch()">Submit Search</button>
     </div>
+
+    <app-public-falsehood-search></app-public-falsehood-search>
 
     <div *ngIf="mainFalsehood">
         <table>

@@ -49,7 +49,7 @@ export class MediaOutletComponent implements OnInit {
 
     if(this.mode == 2 && this.mainOutlet) {
       let searchObj = new FalsehoodSearchObject();
-      searchObj.outlets = [this.mainOutlet.outlet.name];
+      searchObj.outlet = this.mainOutlet.outlet;
 
       this.searchComponent.initializeList(searchObj);
     }
