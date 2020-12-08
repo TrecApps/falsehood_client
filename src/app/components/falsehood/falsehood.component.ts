@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FalsehoodSearchObject, FullFalsehood } from 'src/app/models/falsehoods';
+import { Falsehood, FalsehoodSearchObject, FullFalsehood } from 'src/app/models/falsehoods';
 import { MediaOutlet } from 'src/app/models/mediaOutlet';
 import { PublicFigure } from 'src/app/models/publicFigure';
 import { SearchService } from 'src/app/services/search.service';
@@ -26,6 +26,9 @@ export class FalsehoodComponent implements OnInit {
   doSearch:boolean;
 
   // Resources for creating new Falsehood
+  newFalsehood: FullFalsehood;
+
+
   newFalsehoodOutlet: String;
   newFalsehoodCLie: String;
   newFalsehoodMT: Number;
@@ -83,6 +86,22 @@ export class FalsehoodComponent implements OnInit {
 
   startCreateNew() {
     this.createNew = true;
+    this.doSearch = false;
+    this.newFalsehood = new FullFalsehood();
+    this.newFalsehood.metadata = new Falsehood();
+    this.newFalsehood.metadata.id = null;
+  }
+
+  setNewAuthor(out: PublicFigure, t: number) {
+    if(t == 1) {
+      this.newFalsehood.metadata.author1 = out;
+    } else {
+      this.newFalsehood.metadata.author2 = out;
+    }
+  }
+
+  setNewOutlet(out: MediaOutlet) {
+    this.newFalsehood.metadata.outlet = out;
   }
 
   stopCreateNew() {
