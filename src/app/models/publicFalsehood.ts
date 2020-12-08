@@ -9,12 +9,14 @@ export class SearchPublicFalsehood {
     
     to: Date;
     from: Date;
-    regions: Region[];
-    institutions: Institution[];
+    region: Region;
+    institution: Institution;
     minimum: Severity;
     maximum: Severity;
 
-    authors: PublicFigure[];
+    official: PublicFigure;
+    numberOfEntries:number;
+    page: number;
 }
 
 export class PublicFalsehood {

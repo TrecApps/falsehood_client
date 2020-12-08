@@ -52,7 +52,7 @@ export class RegionComponent implements OnInit {
 
     if(this.mode == 2 && this.mainRegion) {
       let searchObj = new SearchPublicFalsehood();
-      searchObj.regions = [this.mainRegion.region];
+      searchObj.region = this.mainRegion.region;
 
       this.searchComponent.initializeList(searchObj);
     }
