@@ -19,7 +19,7 @@ export class SearchService {
   async searchFalsehoods(searchObj: FalsehoodSearchObject): Promise<Falsehood[]> {
     
     let ret: Falsehood[];
-    await this.httpClient.post(environment.FALSEHOOD_URL + "Falsehood/list", searchObj).toPromise()
+    await this.httpClient.post(environment.FALSEHOOD_URL + "Falsehood/searchConfirmed", searchObj).toPromise()
       .then((falsehoods: Falsehood[]) => {
         ret = falsehoods;
       }).catch((reason)=> {
@@ -31,7 +31,7 @@ export class SearchService {
   async searchPublicFalsehoods(searchObj: SearchPublicFalsehood): Promise<PublicFalsehood[]> {
     
     let ret: PublicFalsehood[];
-    await this.httpClient.post(environment.FALSEHOOD_URL + "PublicFalsehood/list", searchObj).toPromise()
+    await this.httpClient.post(environment.FALSEHOOD_URL + "PublicFalsehood/searchConfirmed", searchObj).toPromise()
       .then((falsehoods: PublicFalsehood[]) => {
         ret = falsehoods;
       }).catch((reason)=> {
