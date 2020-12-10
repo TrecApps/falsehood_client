@@ -20,6 +20,13 @@
   <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
   <button class="btn bg-info" (click)="setMode(2)">Public Falsehoods</button>
 
+  <br>
+  <div *ngIf="mainInst.institution?.approved == 0 && token.credit >= 200">
+    <button class="btn ng-info" (click)="approveInst(true)">Approve Institution</button>
+    <button class="btn ng-info" (click)="approveInst(false)">Reject Institution</button>
+    <br>
+  </div>
+
   <div *ngIf="mode==1" [innerHTML]="mainInst.contents | marked">
 
   </div>

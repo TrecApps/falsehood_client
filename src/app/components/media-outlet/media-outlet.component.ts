@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
 import { MediaOutlet, MediaOutletEntry } from 'src/app/models/mediaOutlet';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -28,7 +29,7 @@ export class MediaOutletComponent implements OnInit {
 
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
 
-  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService) {
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, private approveService: ApproveServiceService) {
     this.token = token;
 
     this.searchOutlets = [];
@@ -88,6 +89,14 @@ export class MediaOutletComponent implements OnInit {
     });
 
     this.searchText = "";
+  }
+
+  approveOutlet(app:boolean) {
+    this.approveService.approveOutlet(app, this.mainOutlet.outlet.outletId.valueOf()).then((resp:boolean) => { 
+      if(resp) {
+        this.mainOutlet.outlet.approved = 1;
+      }
+    });
   }
 
 }

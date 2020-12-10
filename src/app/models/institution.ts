@@ -4,7 +4,7 @@ export class Institution {
         this.id = -1;
         this.name = "";
     }
-
+    approved: number;
     id: Number;
     name: String;
 }

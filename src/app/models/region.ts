@@ -6,6 +6,8 @@ export class Region {
     }
     id: Number;
     name: String;
+    approved: number;
+    
 }
 
 export class RegionEntry {

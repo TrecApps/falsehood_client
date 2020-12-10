@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
 import { PublicFigure, PublicFigureEntry } from 'src/app/models/publicFigure';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -30,7 +31,7 @@ export class PublicFigureComponent implements OnInit {
 
   @ViewChild(PublicFalsehoodSearchComponent) publicSearchComponent: PublicFalsehoodSearchComponent;
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
-  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService) { 
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, private approveService: ApproveServiceService) { 
     this.token = token;
 
     this.searchFigures = [];
@@ -97,4 +98,11 @@ export class PublicFigureComponent implements OnInit {
     this.searchText = "";
   }
 
+  approveFigure(app:boolean){
+    this.approveService.approveRegion(app, this.mainFigure.figure.id.valueOf()).then((resp:boolean) => { 
+      if(resp) {
+        this.mainFigure.figure.approved = 1;
+      }
+    });
+  }
 }

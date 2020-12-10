@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -27,7 +28,7 @@ export class InstitutionComponent implements OnInit {
   searchInst: Institution[];
   searchText: String;
 
-  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService) {
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, private approveService: ApproveServiceService) {
     this.mode = 0;
     this.createNew = false;
 
@@ -87,6 +88,14 @@ export class InstitutionComponent implements OnInit {
     });
 
     this.searchText = "";
+  }
+
+  approveInst(app: boolean) {
+    this.approveService.approveRegion(app, this.mainInst.institution.id.valueOf()).then((resp:boolean) => { 
+      if(resp) {
+        this.mainInst.institution.approved = 1;
+      }
+    });
   }
 
 }

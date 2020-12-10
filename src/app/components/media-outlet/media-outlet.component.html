@@ -17,7 +17,12 @@
     
         <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
         <button class="btn bg-info" (click)="setMode(2)">Media Falsehoods</button>
-
+        <br>
+        <div *ngIf="mainOutlet.outlet?.approved == 0 && token.credit >= 200">
+          <button class="btn ng-info" (click)="approveOutlet(true)">Approve Outlet</button>
+          <button class="btn ng-info" (click)="approveOutlet(false)">Reject Outlet</button>
+          <br>
+        </div>
         <div *ngIf="mode==1" [innerHTML]="mainOutlet.text | marked"></div>
 
         <div *ngIf="mode==2">

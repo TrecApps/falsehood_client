@@ -3,6 +3,7 @@ export class PublicFigure{
     firstname: string;
     middleNames: string;
     lastName: string;
+    approved: number;
 };
 
 export class PublicFigureEntry {

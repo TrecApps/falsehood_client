@@ -17,6 +17,12 @@
 
   <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
   <button class="btn bg-info" (click)="setMode(2)">Public Falsehoods</button>
+  <br>
+  <!--Give those with a high credibility rating a chance to approve or reject an unconfirmed falsehood-->
+  <div *ngIf="mainRegion.region?.approved == 0 && token.credit >= 200">
+    <button class="btn ng-info" (click)="approveRegion(true)">Approve Region</button>
+    <button class="btn ng-info" (click)="approveRegion(false)">Reject Region</button>
+  </div>
 
   <div *ngIf="mode==1" [innerHTML]="mainRegion.contents | marked">
 

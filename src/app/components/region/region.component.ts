@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -31,7 +32,7 @@ export class RegionComponent implements OnInit {
   searchRegion: Region[];
 
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent
-  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService) {
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, private approveService: ApproveServiceService) {
     this.mode = 0;
     this.createNew = false;
 
@@ -92,6 +93,14 @@ export class RegionComponent implements OnInit {
     });
 
     this.searchText = "";
+  }
+
+  approveRegion(app:boolean) {
+    this.approveService.approveRegion(app, this.mainRegion.region.id.valueOf()).then((resp:boolean) => { 
+      if(resp) {
+        this.mainRegion.region.approved = 1;
+      }
+    });
   }
 
 }
