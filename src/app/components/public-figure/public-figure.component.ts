@@ -99,7 +99,7 @@ export class PublicFigureComponent implements OnInit {
   }
 
   approveFigure(app:boolean){
-    this.approveService.approveRegion(app, this.mainFigure.figure.id.valueOf()).then((resp:boolean) => { 
+    this.approveService.approvePublicFigure(app, this.mainFigure.figure.id.valueOf()).then((resp:boolean) => { 
       if(resp) {
         this.mainFigure.figure.approved = 1;
       }

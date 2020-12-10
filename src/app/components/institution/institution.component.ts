@@ -91,7 +91,7 @@ export class InstitutionComponent implements OnInit {
   }
 
   approveInst(app: boolean) {
-    this.approveService.approveRegion(app, this.mainInst.institution.id.valueOf()).then((resp:boolean) => { 
+    this.approveService.approveInstitution(app, this.mainInst.institution.id.valueOf()).then((resp:boolean) => { 
       if(resp) {
         this.mainInst.institution.approved = 1;
       }
