@@ -1,25 +1,28 @@
 <h2>Media Falsehoods</h2>
 
 <div *ngIf="!createNew">
-    <button class="btn bg-info" (click)="startCreateNew()">Create New Falsehood</button>
-    <button class="btn bg-info" (click)="startSearch()">Search Falsehoods</button><br>
-    <div *ngIf="doSearch">
+    <div class="jumbotron">
+        <button class="btn bg-info" (click)="startCreateNew()">Create New Falsehood</button>
+        <button class="btn bg-info" (click)="startSearch()">Search Falsehoods</button>
+    </div>
+    <br>
+    <div *ngIf="doSearch" class="container form form-group">
         <label>Search Falsehood</label><br>
         <label>By Date?</label>
 
         <!-- Handle Dates-->
-        <input type="radio" name="ByDate" (click)="setDateSearchMode(0)" id="noDates" clicked><label for="noDates">No Dates</label>
-        <input type="radio" name="ByDate" (click)="setDateSearchMode(1)" id="beforeDates" clicked><label for="beforeDates">Before Date</label>
-        <input type="radio" name="ByDate" (click)="setDateSearchMode(2)" id="betweenDates" clicked><label for="betweenDates">Between Dates</label>
+        <input class="form-control" type="radio" name="ByDate" (click)="setDateSearchMode(0)" id="noDates" clicked><label for="noDates">No Dates</label>
+        <input class="form-control" type="radio" name="ByDate" (click)="setDateSearchMode(1)" id="beforeDates" clicked><label for="beforeDates">Before Date</label>
+        <input class="form-control" type="radio" name="ByDate" (click)="setDateSearchMode(2)" id="betweenDates" clicked><label for="betweenDates">Between Dates</label>
         <br>
         <div *ngIf="dateSearchMode > 0">
             <label>Latest Date</label>
-            <input type="date" [(ngModel)]="search.to">
+            <input class="form-control" type="date" [(ngModel)]="search.to">
             <br>
         </div>
         <div *ngIf="dateSearchMode > 1">
             <label>Earliest Date</label>
-            <input type="date" [(ngModel)]="search.from">
+            <input class="form-control" type="date" [(ngModel)]="search.from">
             <br>
         </div>
 
@@ -50,7 +53,7 @@
         <!--Media Outlet-->
         <label>By Outlet</label>
         <p>{{search.outlet}}</p>
-        <input type="search" (change)="onSearchOutlet($event)" [(ngModel)]="searchOutlet" placeholder="Search Media Outlet">
+        <input class="form-control" type="search" (change)="onSearchOutlet($event)" [(ngModel)]="searchOutlet" placeholder="Search Media Outlet">
 
         <ul *ngFor="let outlet of outletList">
           <li (click)="setOutlet(outlet)">Media Outlet: {{outlet.name}}, founded {{outlet.foundationYear}}</li>
@@ -91,7 +94,7 @@
     <app-falsehood-search></app-falsehood-search>
 
     <div *ngIf="mainFalsehood">
-        <table>
+        <table class="table table-hover">
             <tr>
                 <th>Fields</th>
                 <th>Details</th>
@@ -135,11 +138,11 @@
 
 </div>
 
-<div *ngIf="createNew" class="container form">
+<div *ngIf="createNew" class="container form form-group">
     <!--Media Outlet-->
     <label>By Outlet</label>
     <p>{{search.outlet}}</p>
-    <input type="search" (change)="onSearchOutlet($event)" [(ngModel)]="searchOutlet" placeholder="Search Media Outlet">
+    <input class="form-control" type="search" (change)="onSearchOutlet($event)" [(ngModel)]="searchOutlet" placeholder="Search Media Outlet">
     <ul *ngFor="let outlet of outletList">
     <li (click)="setOutlet(outlet)">Media Outlet: {{outlet.name}}, founded {{outlet.foundationYear}}</li>
     </ul>
@@ -154,14 +157,14 @@
 
     <!--Media Type (Article or Video)-->
     <label>Media Type</label>
-    <select [(ngModel)]="newFalsehood.metadata.mediaType">
+    <select class="form-control" [(ngModel)]="newFalsehood.metadata.mediaType">
         <option value="0">Article</option>
         <option value="1">Video</option>
     </select>
     <br>
     <!--By Severity-->
     <label>Severity</label>
-    <select [(ngModel)]="newFalsehood.metadata.severity">
+    <select class="form-control" [(ngModel)]="newFalsehood.metadata.severity">
         <option value="1">Objective Falsehood</option>
         <option value="2">Omitted Information</option>
         <option value="4">Subjective Falsehood</option>
@@ -170,7 +173,7 @@
     <br>
     <!--Public Figures 1-->
     <label>Author 1</label>
-    <input type="search" (change)="onSearchAuthor($event)" [(ngModel)]="searchAuthor" placeholder="Search Author (public Figure)">
+    <input class="form-control" type="search" (change)="onSearchAuthor($event)" [(ngModel)]="searchAuthor" placeholder="Search Author (public Figure)">
 
         <ul *ngFor="let author of authorList">
           <li (click)="setAuthor(author)">Public Figure: {{author.firstname}} {{author.middleNames}} {{author.lastName}}</li>
@@ -187,7 +190,7 @@
 
     <!--Public Figure 2-->
     <label>Author 2</label>
-    <input type="search" (change)="onSearchAuthor($event)" [(ngModel)]="searchAuthor" placeholder="Search Author (public Figure)">
+    <input class="form-control" type="search" (change)="onSearchAuthor($event)" [(ngModel)]="searchAuthor" placeholder="Search Author (public Figure)">
 
     <ul *ngFor="let author of authorList">
       <li (click)="setAuthor(author)">Public Figure: {{author.firstname}} {{author.middleNames}} {{author.lastName}}</li>
@@ -203,9 +206,9 @@
 
     <br>
     <label>Date Made</label>
-    <input type="date" [(ngModel)]="newFalsehood.metadata.dateMade">
+    <input class="form-control" type="date" [(ngModel)]="newFalsehood.metadata.dateMade">
 
-    <textarea [(ngModel)]="newFalsehood.contents"></textarea>
+    <textarea class="form-control" [(ngModel)]="newFalsehood.contents"></textarea>
   
   
     <div [innerHTML]="newFalsehood.contents | marked"></div>
@@ -215,6 +218,6 @@
     <textarea [(ngModel)]="newFalsehood.keywords"></textarea>
     <br>
   
-    <button class="btn bg-info" (click)="stopCreateNew()"></button>
+    <button class="btn bg-info" (click)="stopCreateNew()">Cancel</button>
 
 </div>

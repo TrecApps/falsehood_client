@@ -5,7 +5,7 @@
 <div>
   <button *ngIf="token.credit >= 35" class="btn bg-info" (click)="startCreateNew()">Create New</button>
   <label>Search Region</label>
-  <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Region">
+  <input class="form-control" type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Region">
 
   <ul *ngFor="let region of searchRegion">
     <li (click)="getRegion(region.id)">Region: {{region.name}}</li>
@@ -24,21 +24,23 @@
     <button class="btn ng-info" (click)="approveRegion(false)">Reject Region</button>
   </div>
 
-  <div *ngIf="mode==1" [innerHTML]="mainRegion.contents | marked">
+  <div class="container">
+    <div *ngIf="mode==1" [innerHTML]="mainRegion.contents | marked">
 
-  </div>
-  <div *ngIf="mode==2">
-    <app-public-falsehood-search></app-public-falsehood-search>
+    </div>
+    <div *ngIf="mode==2">
+      <app-public-falsehood-search></app-public-falsehood-search>
+    </div>
   </div>
 </div>
 
 </div>
 
-<div *ngIf="token.credit >= 35 && createNew">
+<div class="container form form-group"  *ngIf="token.credit >= 35 && createNew">
 
   <label>Name</label>
-  <input type="text" [(ngModel)]="editName">
-  <textarea [(ngModel)]="editContents"></textarea>
+  <input class="form-control" type="text" [(ngModel)]="editName">
+  <textarea class="form-control" [(ngModel)]="editContents"></textarea>
 
 
   <div [innerHTML]="editContents | marked"></div>

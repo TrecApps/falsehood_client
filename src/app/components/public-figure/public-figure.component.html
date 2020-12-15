@@ -5,7 +5,7 @@
     <div>
         <button *ngIf="token.credit >= 35" class="btn bg-info" (click)="startCreateNew()">Create New</button>
         <label>Search Public Figure</label>
-        <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Public Figure">
+        <input class="form-control" type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Public Figure">
 
         <ul *ngFor="let figure of searchFigures">
           <li (click)="getFigure(figure.id)">Public Figure: {{figure.firstname}} {{figure.middleNames}} {{figure.lastName}}</li>
@@ -38,11 +38,11 @@
 
 </div>
 
-<div *ngIf="token.credit >= 40 && createNew">
+<div class="container form form-group" *ngIf="token.credit >= 40 && createNew">
 
     <label>Name</label>
-    <input type="text" [(ngModel)]="editName">
-    <textarea [(ngModel)]="editContents"></textarea>
+    <input class="form-control" type="text" [(ngModel)]="editName">
+    <textarea class="form-control" [(ngModel)]="editContents"></textarea>
   
   
     <div [innerHTML]="editContents | marked"></div>

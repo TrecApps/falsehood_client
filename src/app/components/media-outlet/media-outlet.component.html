@@ -5,7 +5,7 @@
     <div>
         <button *ngIf="token.credit >= 35" class="btn bg-info" (click)="startCreateNew()">Create New</button>
         <label>Search Media Outlet</label>
-        <input type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Media Outlet">
+        <input class="form-control" type="search" (change)="onSearchUpdate($event)" [(ngModel)]="searchText" placeholder="Search Media Outlet">
 
         <ul *ngFor="let outlet of searchOutlets">
           <li (click)="getOutlet(outlet.outletId)">Public Figure: {{outlet.name}}, founded {{outlet.foundationYear}}</li>
@@ -15,13 +15,15 @@
     <div *ngIf="mainOutlet && mainOutlet.outlet">
         <h3>Title: {{mainOutlet.outlet.name}}</h3>
     
-        <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
-        <button class="btn bg-info" (click)="setMode(2)">Media Falsehoods</button>
-        <br>
-        <div *ngIf="mainOutlet.outlet?.approved == 0 && token.credit >= 200">
-          <button class="btn ng-info" (click)="approveOutlet(true)">Approve Outlet</button>
-          <button class="btn ng-info" (click)="approveOutlet(false)">Reject Outlet</button>
+        <div class="jumbotron">
+          <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
+          <button class="btn bg-info" (click)="setMode(2)">Media Falsehoods</button>
           <br>
+          <div *ngIf="mainOutlet.outlet?.approved == 0 && token.credit >= 200">
+            <button class="btn ng-info" (click)="approveOutlet(true)">Approve Outlet</button>
+            <button class="btn ng-info" (click)="approveOutlet(false)">Reject Outlet</button>
+            <br>
+          </div>
         </div>
         <div *ngIf="mode==1" [innerHTML]="mainOutlet.text | marked"></div>
 
@@ -32,12 +34,12 @@
 
 </div>
 
-<div *ngIf="token.credit >= 40 && createNew">
+<div class="container form form-group" *ngIf="token.credit >= 40 && createNew">
     <label>Name</label>
-    <input type="text" [(ngModel)]="editName"><br>
+    <input class="form-control" type="text" [(ngModel)]="editName"><br>
     <label>Year Founded</label>
-    <input type="number" [(ngModel)]="editYear" min="1000" max="2100"><br>
-    <textarea [(ngModel)]="editContents"></textarea>
+    <input class="form-control" type="number" [(ngModel)]="editYear" min="1000" max="2100"><br>
+    <textarea class="form-control" [(ngModel)]="editContents"></textarea>
   
   
     <div [innerHTML]="editContents | marked"></div>
