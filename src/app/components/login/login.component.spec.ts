@@ -1,4 +1,6 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from 'src/app/app.module';
 
 import { LoginComponent } from './login.component';
 
@@ -6,11 +8,15 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
-    })
-    .compileComponents();
+  beforeEach((async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        AppModule
+        ],
+      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      ]
+  })
+  .compileComponents();
   }));
 
   beforeEach(() => {

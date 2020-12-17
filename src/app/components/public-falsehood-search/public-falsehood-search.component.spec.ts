@@ -1,19 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { APP_BASE_HREF } from '@angular/common';
 import { PublicFalsehoodSearchComponent } from './public-falsehood-search.component';
+import { AppModule } from 'src/app/app.module';
+
 
 describe('PublicFalsehoodSearchComponent', () => {
+
   let component: PublicFalsehoodSearchComponent;
   let fixture: ComponentFixture<PublicFalsehoodSearchComponent>;
 
-  beforeEach(async () => {
+  beforeEach(async() => {
     await TestBed.configureTestingModule({
-      declarations: [ PublicFalsehoodSearchComponent ]
-    })
-    .compileComponents();
-  });
+      imports: [
+        AppModule
+      ],
+      providers: [{provide:APP_BASE_HREF, useValue:'/'}]
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(PublicFalsehoodSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -21,5 +24,5 @@ describe('PublicFalsehoodSearchComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  })
 });

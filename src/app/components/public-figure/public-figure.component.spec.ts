@@ -1,4 +1,6 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from 'src/app/app.module';
 
 import { PublicFigureComponent } from './public-figure.component';
 
@@ -8,9 +10,13 @@ describe('PublicFigureComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PublicFigureComponent ]
-    })
-    .compileComponents();
+      imports: [
+        AppModule
+        ],
+      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      ]
+  })
+  .compileComponents();
   });
 
   beforeEach(() => {
