@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { FullFalsehood } from '../models/falsehoods';
 import { Institution, InstitutionEntry } from '../models/institution';
 import { MediaOutlet, MediaOutletEntry } from '../models/mediaOutlet';
+import { FullPublicFalsehood } from '../models/publicFalsehood';
 import { PublicFigure, PublicFigureEntry } from '../models/publicFigure';
 import { Region, RegionEntry } from '../models/region';
 import { TokenService } from './token.service';
@@ -113,5 +115,26 @@ export class SubmitService {
       return result;
   }
 
+  async submitPublicFalsehood(falsehood: FullPublicFalsehood) : Promise<boolean> {
+    let ret: boolean;
+
+    await this.httpClient.post(environment.FALSEHOOD_URL + "Update/PublicFalsehood/Insert", falsehood,
+    {headers: this.tokenService.httpHeaders}).toPromise().then(()=> ret = true).catch((reason) => {
+      ret = false;
+      alert(reason.error.message || reason.message);
+    });
+    return ret;
+  }
+
+  async submitFalsehod(falsehood: FullFalsehood) : Promise<boolean> {
+    let ret: boolean;
+
+    await this.httpClient.post(environment.FALSEHOOD_URL + "Update/Falsehood/Insert", falsehood,
+    {headers: this.tokenService.httpHeaders}).toPromise().then(()=> ret = true).catch((reason) => {
+      ret = false;
+      alert(reason.error.message || reason.message);
+    });
+    return ret;
+  }
 
 }

@@ -5,6 +5,7 @@ import { Institution } from 'src/app/models/institution';
 import { PublicFigure } from 'src/app/models/publicFigure';
 import { SearchService } from 'src/app/services/search.service';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
+import { SubmitService } from 'src/app/services/submit.service';
 
 @Component({
   selector: 'app-public-falsehood',
@@ -32,7 +33,7 @@ export class PublicFalsehoodComponent implements OnInit {
 
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
 
-  constructor(private searchService: SearchService) { 
+  constructor(private searchService: SearchService, private submitter: SubmitService) { 
     this.createNew = this.doSearch = false;
     this.search = new SearchPublicFalsehood();
   }
@@ -92,6 +93,13 @@ export class PublicFalsehoodComponent implements OnInit {
     this.newFalsehood.metadata = new PublicFalsehood();
     this.newFalsehood.metadata.id = null;
     this.newFalsehood.metadata.status = 0;
+  }
+  submitNewFalsehod() {
+    this.submitter.submitPublicFalsehood(this.newFalsehood).then((result: boolean)=> {
+      if(result) {
+        this.stopCreateNew();
+      } 
+    });
   }
 
   setNewAuthor(out: PublicFigure) {

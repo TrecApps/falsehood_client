@@ -3,6 +3,7 @@ import { Falsehood, FalsehoodSearchObject, FullFalsehood } from 'src/app/models/
 import { MediaOutlet } from 'src/app/models/mediaOutlet';
 import { PublicFigure } from 'src/app/models/publicFigure';
 import { SearchService } from 'src/app/services/search.service';
+import { SubmitService } from 'src/app/services/submit.service';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 
@@ -30,7 +31,7 @@ export class FalsehoodComponent implements OnInit {
 
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
 
-  constructor(private searchService: SearchService) { 
+  constructor(private searchService: SearchService, private submitter: SubmitService) { 
     this.createNew = this.doSearch = false;
     this.search = new FalsehoodSearchObject();
   }
@@ -80,6 +81,14 @@ export class FalsehoodComponent implements OnInit {
     this.newFalsehood.metadata = new Falsehood();
     this.newFalsehood.metadata.id = null;
     this.newFalsehood.metadata.status = 0;
+  }
+
+  submitNewFalsehod() {
+    this.submitter.submitFalsehod(this.newFalsehood).then((result: boolean)=> {
+      if(result) {
+        this.stopCreateNew();
+      } 
+    });
   }
 
   setNewAuthor(out: PublicFigure, t: number) {
