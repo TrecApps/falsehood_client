@@ -14,6 +14,7 @@
         <li class="nav-item"><a class="nav-link" routerLink="MediaOutlet">Media Outlets</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="Regions">Regions</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="Institution">Institutions</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="Appeal">Check Appeals</a></li>
         <div *ngIf="tokenService.userInfo?.token">
           <li class="nav-item"><label>{{tokenService.userInfo.username}} ({{tokenService.credit}})</label></li>
           <li class="nav-item"><button (click)="logout">Log-Out</button></li>
