@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { Falsehood, FalsehoodSearchObject } from '../models/falsehoods';
-import { PublicFalsehood, SearchPublicFalsehood } from '../models/publicFalsehood';
+import { Falsehood, FalsehoodSearchObject, FullFalsehood } from '../models/falsehoods';
+import { FullPublicFalsehood, PublicFalsehood, SearchPublicFalsehood } from '../models/publicFalsehood';
 import { Region, RegionEntry } from '../models/region';
 import { Institution, InstitutionEntry } from '../models/institution';
 import { PublicFigure, PublicFigureEntry } from '../models/publicFigure';
@@ -87,6 +87,32 @@ export class SearchService {
 
     return ret;
   }
+
+  async getFalsehood(id: Number) : Promise<FullFalsehood> {
+    let ret: FullFalsehood;
+    await this.httpClient.get(environment.FALSEHOOD_URL + `Falsehood/id/${id}`).
+    toPromise().then((f: FullFalsehood) => {
+      ret = f;
+    }).catch((reason) => {
+      alert(reason.message || reason.error.message);
+    });
+
+    return ret;
+  }
+
+  
+  async getPublicFalsehood(id: Number) : Promise<FullPublicFalsehood> {
+    let ret: FullPublicFalsehood;
+    await this.httpClient.get(environment.FALSEHOOD_URL + `PublicFalsehood/id/${id}`).
+    toPromise().then((f: FullPublicFalsehood) => {
+      ret = f;
+    }).catch((reason) => {
+      alert(reason.message || reason.error.message);
+    });
+
+    return ret;
+  }
+
 
   async searchPublicFigures(searchTerm: String): Promise<PublicFigure[]> {
     let ret: PublicFigure[];

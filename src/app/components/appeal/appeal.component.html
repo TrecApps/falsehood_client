@@ -10,7 +10,40 @@
 </nav>
 
 
-<div *ngIf="appealMode == 1">
+<div *ngIf="appealMode == 1" class="container">
+  <button class="btn bg-info" (click)="ClearNewAppeal()">Reset</button>
+  <div *ngIf="!medFalsehood && !pubFalsehood">
+    <button class="btn bg-info" (click)="SelectMediaFalsehood()">Select Media Falsehood</button>
+    <button class="btn bg-info" (click)="SelectPublicFalsehood()">Select Public Falsehood</button>
+    <br>
+    <div *ngIf="selectMode == 1 && !searchMedComponent.falsehood">
+      <app-falsehood-search ></app-falsehood-search>
+    </div>
+    <div *ngIf="selectMode == 2 && !searchPubComponent.falsehood">
+      <app-public-falsehood-search ></app-public-falsehood-search>
+    </div>
+    
+    <div *ngIf="searchMedComponent.falsehood || searchPubComponent.falsehood">
+      <h4>Falsehood Details</h4>
+      <div [innerHTML]="(searchMedComponent.falsehood?.contents || searchPubComponent.falsehood.contents) | marked"></div>
+
+      <br>
+      <h4>Desired State</h4>
+      <select class="form-control" [(ngModel)]="desiredState">
+        <option value="Challenged">Challenge</option>
+        <option value="Upgrade">Upgrade</option>
+      </select>
+
+      <br>
+
+      <h4>Your Reason</h4>
+      <textarea [(ngModel)]="reason"></textarea>
+
+      <br>
+      <button class="btn bg-info" (click)="submitAppeal()">Submit Appeal</button>
+    </div>
+
+  </div>
 
 </div>
 

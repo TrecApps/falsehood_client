@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Falsehood, FalsehoodSearchObject } from 'src/app/models/falsehoods';
+import { Falsehood, FalsehoodSearchObject, FullFalsehood } from 'src/app/models/falsehoods';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
@@ -11,16 +11,26 @@ export class FalsehoodSearchComponent implements OnInit {
 
   constructor(private searcher: SearchService) { 
     this.falsehoods = [];
+    this.falsehood = null;
   }
 
   ngOnInit(): void {
   }
 
   falsehoods: Falsehood[];
+  falsehood: FullFalsehood;
+
+  selectFalsehood(falsehood: Falsehood){
+    this.searcher.getFalsehood(falsehood.id).then((value: FullFalsehood) => {
+      this.falsehood = value;
+    });
+    
+  }
 
   initializeList(searchObj: FalsehoodSearchObject) {
     this.searcher.searchFalsehoods(searchObj).then((value:Falsehood[])=> {
       this.falsehoods = value;
+      this.falsehood = null;
     });
   }
 }

@@ -9,7 +9,7 @@
         <th>Date Made</th>
         <th>Content Id</th>
     </tr>
-    <tr *ngFor="let falsehood of falsehoods">
+    <tr *ngFor="let falsehood of falsehoods" (click)="selectFalsehood(falsehood)">
         <td>{{falsehood.outlet.name}}</td>
         <td>{{falsehood.status}}</td>
         <td>{{falsehood.mediaType}}</td>

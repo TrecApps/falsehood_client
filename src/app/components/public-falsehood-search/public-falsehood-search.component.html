@@ -9,7 +9,7 @@
         <th>Date Made</th>
 
     </tr>
-    <tr *ngFor="let falsehood of falsehoods">
+    <tr *ngFor="let falsehood of falsehoods" (click)="selectFalsehood(falsehood)">
         <td>{{falsehood.status}}</td>
         <td>{{falsehood.severity}}</td>
         <td>{{falsehood.officialType}}</td>
