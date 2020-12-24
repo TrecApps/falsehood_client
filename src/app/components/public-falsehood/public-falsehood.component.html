@@ -168,7 +168,7 @@
     <input class="form-control" type="search" (change)="onSearchAuthor($event)" [(ngModel)]="searchAuthor" placeholder="Search Author (public Figure)">
 
         <ul *ngFor="let author of authorList">
-          <li (click)="setAuthor(author)">Public Figure: {{author.firstname}} {{author.middleNames}} {{author.lastName}}</li>
+          <li (click)="setNewAuthor(author)">Public Figure: {{author.firstname}} {{author.middleNames}} {{author.lastName}}</li>
         </ul>
 
         <div *ngIf="newFalsehood.metadata.official">
