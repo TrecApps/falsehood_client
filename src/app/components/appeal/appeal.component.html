@@ -47,6 +47,109 @@
 
 </div>
 
-<div *ngIf="appealMode == 2">
-    
+<div *ngIf="appealMode == 2" class="container">
+  <label>Enter Appeal ID</label>
+  <input type="number" [(ngModel)]="desiredAppealId">
+  <button class="btn bg-info" (click)="seekAppeal()">Retrieve Appeal</button>
+  <br>
+
+  <div ngIf*="currentAppeal">
+    <table class="table table-hover" *ngIf="currentAppeal.appeal?.falsehood">
+      <tr>
+          <th>Fields</th>
+          <th>Details</th>
+      </tr>
+      <tr>
+          <td>ID</td>
+          <td>{{currentAppeal.appeal.falsehood.id}}</td>
+      </tr>
+      <tr>
+          <td>Media Outlet</td>
+          <td>{{currentAppeal.appeal.falsehood.outlet.name}}</td>
+      </tr>
+      <tr>
+          <td>Common Lie</td>
+          <td>{{currentAppeal.appeal.falsehood.commonLie?.title}}</td>
+      </tr>
+      <tr>
+          <td>Status</td>
+          <td>{{currentAppeal.appeal.falsehood.status}}</td>
+      </tr>
+      <tr>
+          <td>Severity</td>
+          <td>{{currentAppeal.appeal.falsehood.severity}}</td>
+      </tr>
+      <tr>
+          <td>Author 1</td>
+          <td>{{currentAppeal.appeal.falsehood.author1.firstname + currentAppeal.appeal.falsehood.author1.lastName}}</td>
+      </tr>
+      <tr *ngIf="currentAppeal.appeal.falsehood.author2">
+          <td>Author 2</td>
+          <td>{{currentAppeal.appeal.falsehood.author2.firstname + currentAppeal.appeal.falsehood.author2.lastName}}</td>
+      </tr>
+      <tr>
+          <td>Date</td>
+          <td>{{currentAppeal.appeal.falsehood.dateMade}}</td>
+      </tr>
+    </table>
+
+    <table class="table table-hover" *ngIf="currentAppeal.appeal?.pFalsehood">
+    <tr>
+        <th>Fields</th>
+        <th>Details</th>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td>{{currentAppeal.appeal.pFalsehood.id}}</td>
+    </tr>
+    <tr>
+        <td>Common Lie</td>
+        <td>{{currentAppeal.appeal.pFalsehood.commonLie?.title}}</td>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td>{{currentAppeal.appeal.pFalsehood.status}}</td>
+    </tr>
+    <tr>
+        <td>Severity</td>
+        <td>{{currentAppeal.appeal.pFalsehood.severity}}</td>
+    </tr>
+    <tr>
+        <td>Public Official</td>
+        <td>{{currentAppeal.appeal.pFalsehood.official.firstname + currentAppeal.appeal.pFalsehood.official.lastName}}</td>
+    </tr>
+    <tr>
+        <td>Date</td>
+        <td>{{currentAppeal.appeal.pFalsehood.dateMade}}</td>
+    </tr>
+    <tr>
+        <td>Region</td>
+        <td>{{currentAppeal.appeal.pFalsehood.region.name}}</td>
+    </tr>
+    <tr>
+        <td>Institution</td>
+        <td>{{currentAppeal.appeal.pFalsehood.institution.name}}</td>
+    </tr>
+    </table>
+
+    <h6>Desired State: {{currentAppeal.appeal.desiredState}}</h6>
+    <br>
+
+    <div [innerHTML]="currentAppeal.reason | marked"></div>
+
+    <br>
+    <button class="btn ng-info" (click)="attemptSign()">Offer To Sign (You will get an email)</button>
+    <br>
+
+    <div *ngIf="attemptedSign">
+      <p>You should recieve an email from us related to the Appeal you wish to sign. To verify your signature, please enter the Validation code in that email
+        into the text box below</p>
+      <label>Appeal Validation</label>
+      <input type="text" [(ngModel)]="validationCode">
+      <button class="btn bg-info" (click)="attemptRatification()">Confirm Signature</button>
+    </div>
+
+  </div>
+
+
 </div>

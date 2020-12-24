@@ -22,11 +22,19 @@ export class AppealComponent implements OnInit, OnChanges  {
   reason: string;
   desiredState: string;
 
+  // Resources for an appeal
+  currentAppeal: FalsehoodAppealEntry;
+  desiredAppealId: Number;
+  attemptedSign: boolean;
+  validationCode: String;
 
   @ViewChild(PublicFalsehoodSearchComponent) searchPubComponent: PublicFalsehoodSearchComponent;
   @ViewChild(FalsehoodSearchComponent) searchMedComponent: FalsehoodSearchComponent;
   constructor() { 
     this.ClearNewAppeal();
+    this.currentAppeal = null;
+    this.desiredAppealId = new Number();
+    this.attemptedSign = false;
   }
   ngOnChanges(changes: SimpleChanges): void {
     // throw new Error('Method not implemented.');
@@ -41,6 +49,7 @@ export class AppealComponent implements OnInit, OnChanges  {
 
   setAppealMode(appealMode: number) {
     this.appealMode = appealMode;
+    this.attemptedSign = false;
   }
 
   ClearNewAppeal() {
@@ -55,6 +64,7 @@ export class AppealComponent implements OnInit, OnChanges  {
 
   SelectPublicFalsehood() {
     this.selectMode = 2;
+    this.attemptedSign = false;
   }
 
   submitAppeal() {
@@ -78,4 +88,21 @@ export class AppealComponent implements OnInit, OnChanges  {
     // Clean up
     this.ClearNewAppeal();
   }
+
+  seekAppeal() {
+
+    this.attemptedSign = false;
+  }
+
+  attemptSign() {
+
+
+
+    this.attemptedSign = true;
+  }
+
+  attemptRatification() {
+    
+  }
+
 }
