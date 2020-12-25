@@ -1,7 +1,10 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FalsehoodAppeal, FalsehoodAppealEntry } from 'src/app/models/appeal';
+import { FalsehoodAppeal, FalsehoodAppealEntry, FalsehoodAppealSignature } from 'src/app/models/appeal';
 import { FullFalsehood } from 'src/app/models/falsehoods';
 import { FullPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { TokenService } from 'src/app/services/token.service';
+import { environment } from 'src/environments/environment';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 
@@ -30,7 +33,9 @@ export class AppealComponent implements OnInit, OnChanges  {
 
   @ViewChild(PublicFalsehoodSearchComponent) searchPubComponent: PublicFalsehoodSearchComponent;
   @ViewChild(FalsehoodSearchComponent) searchMedComponent: FalsehoodSearchComponent;
-  constructor() { 
+
+
+  constructor(private client: HttpClient, private tokenService: TokenService) { 
     this.ClearNewAppeal();
     this.currentAppeal = null;
     this.desiredAppealId = new Number();
@@ -83,7 +88,11 @@ export class AppealComponent implements OnInit, OnChanges  {
     fullAppeal.reason = this.reason;
 
     // To-Do: Make call
-
+    this.client.post(environment.FALSEHOOD_URL + "Appeal/Add", fullAppeal, {headers: this.tokenService.httpHeaders}).
+      toPromise().catch((reason) =>{
+        console.log(reason);
+        alert(reason.message || reason.error.message);
+      });
 
     // Clean up
     this.ClearNewAppeal();
@@ -91,18 +100,49 @@ export class AppealComponent implements OnInit, OnChanges  {
 
   seekAppeal() {
 
+    this.client.get(environment.FALSEHOOD_URL + `entry&id=${this.desiredAppealId}`).
+      toPromise().then((entry: FalsehoodAppealEntry) => {
+        this.currentAppeal = entry;
+      }).catch((reason) =>{
+        console.log(reason);
+        alert(reason.message || reason.error.message);
+      });
+
     this.attemptedSign = false;
   }
 
-  attemptSign() {
+  signature: FalsehoodAppealSignature;
 
+  attemptSign() {
+    this.client.post(environment.FALSEHOOD_URL + "Petition", { "appeal" : this.currentAppeal},
+    {headers: this.tokenService.httpHeaders})
+    .toPromise().then((entry: FalsehoodAppealSignature) => {
+      this.signature = entry;
+    }).catch((reason) =>{
+      console.log(reason);
+      alert(reason.message || reason.error.message);
+    });
 
 
     this.attemptedSign = true;
   }
 
   attemptRatification() {
-    
+
+    let headers = new HttpHeaders({
+      "Content-Type" : "application/x-www-form-urlencoded",
+      "Authorization" : this.tokenService.httpHeaders.get("Authorization")
+    });
+
+    this.client.put(environment.FALSEHOOD_URL + "Petition",
+     {"appealId": this.signature.id, "validation": this.validationCode},{headers}).
+     toPromise().then(()=> {
+       alert("Petition Signed!");
+       this.attemptedSign = false;
+     }).catch((reason) => {
+      alert(reason.message || reason.error.message);
+      this.attemptedSign = false;
+     })
   }
 
 }
