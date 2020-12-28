@@ -28,4 +28,15 @@ describe('InstitutionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Set Create New Flag to true', () => {
+    component.startCreateNew();
+    expect(component.createNew).toBeTrue();
+  });
+
+  it('should reset the new resources', () => {
+    component.stopCreateNew();
+    expect(component.createNew).toBeFalse();
+    expect(component.editContents).toBe("");
+  });
 });

@@ -17,12 +17,13 @@
         <li class="nav-item"><a class="nav-link" routerLink="Appeal">Check Appeals</a></li>
         <div *ngIf="tokenService.userInfo?.token">
           <li class="nav-item"><label>{{tokenService.userInfo.username}} ({{tokenService.credit}})</label></li>
-          <li class="nav-item"><button (click)="logout">Log-Out</button></li>
+          <li class="nav-item"><button (click)="logout()">Log-Out</button></li>
         </div>
       </ul>
     </div>
   </nav>
 </div>
 
-
+<div class="container">
 <router-outlet></router-outlet>
+</div>

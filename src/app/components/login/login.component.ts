@@ -31,6 +31,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(!this.pass1) {
+      this.pass1 = new ElementRef({value: ""});
+    }
+
+    
+    if(!this.pass2) {
+      this.pass2 = new ElementRef({value: ""});
+    }
   }
 
   redirect() {
@@ -69,7 +77,7 @@ export class LoginComponent implements OnInit {
 
   comparePasswords() {
     
-		this.canSubmitCreate = this.pass1.nativeElement.value === this.pass2.nativeElement.value && this.pass2.nativeElement.length > 8;
+		this.canSubmitCreate = (this.pass1.nativeElement.value === this.pass2.nativeElement.value) && (this.pass2.nativeElement.value.length > 8);
 
   }
 }
