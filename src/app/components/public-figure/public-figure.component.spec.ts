@@ -28,4 +28,16 @@ describe('PublicFigureComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should reset the new resources', () => {
+    component.startCreateNew();
+    expect(component.createNew).toBeTrue();
+
+    component.stopCreateNew();
+    expect(component.editContents).toBe("");
+    expect(component.editName).toBe("");
+    expect(component.createNew).toBeFalse();
+  });
+
+
 });

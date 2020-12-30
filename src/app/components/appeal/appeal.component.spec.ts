@@ -46,4 +46,15 @@ describe('AppealComponentComponent', () => {
     expect(component.medFalsehood).toBeNull();
     expect(component.pubFalsehood).toBeNull();
   });
+
+  it('should set the appeal mode', () => {
+    component.setAppealMode(0);
+    expect(component.appealMode).toBe(0);
+    expect(component.attemptedSign).toBeFalse();
+
+    component.setAppealMode(1);
+    expect(component.appealMode).toBe(1);
+    expect(component.attemptedSign).toBeFalse();
+
+  })
 });

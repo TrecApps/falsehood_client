@@ -19,4 +19,12 @@ describe('TokenService', () => {
     const service: TokenService = TestBed.get(TokenService);
     expect(service).toBeTruthy();
   });
+
+  it('should log out!', () => {
+    let service: TokenService = TestBed.get(TokenService);
+    service.logout();
+
+    expect(service.userInfo).toBeNull();
+    expect(service.credit).toBe(0);
+  })
 });

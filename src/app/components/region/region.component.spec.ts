@@ -41,5 +41,19 @@ describe('RegionComponent', () => {
     expect(component.editName).toEqual("");
   });
 
+  it('should reset the new resources', () => {
+    component.startCreateNew();
+    expect(component.createNew).toBeTrue();
+
+    component.stopCreateNew();
+    expect(component.editContents).toBe("");
+    expect(component.editName).toBe("");
+    expect(component.createNew).toBeFalse();
+  });
+
+  it('should set the mode to 1', () => {
+    component.setMode(1);
+    expect(component.mode).toBe(1);
+  });
 
 });

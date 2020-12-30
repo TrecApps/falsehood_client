@@ -39,4 +39,9 @@ describe('InstitutionComponent', () => {
     expect(component.createNew).toBeFalse();
     expect(component.editContents).toBe("");
   });
+
+  it('should set the mode to 1', () => {
+    component.setMode(1);
+    expect(component.mode).toBe(1);
+  });
 });

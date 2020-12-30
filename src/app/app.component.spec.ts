@@ -29,5 +29,14 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('trec-apps-falsehood-client-b');
   });
 
+  it('should logout', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    let app = fixture.componentInstance;
+
+    app.logout();
+    
+    expect(app.tokenService.userInfo).toBeNull();
+    expect(app.tokenService.credit).toBe(0);
+  });
 
 });
