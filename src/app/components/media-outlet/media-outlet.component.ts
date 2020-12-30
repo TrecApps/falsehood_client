@@ -48,7 +48,7 @@ export class MediaOutletComponent implements OnInit {
   setMode(m: Number) {
     this.mode = m;
 
-    if(this.mode == 2 && this.mainOutlet) {
+    if(this.mode == 2 && this.mainOutlet.outlet?.outletId) {
       let searchObj = new FalsehoodSearchObject();
       searchObj.outlet = this.mainOutlet.outlet;
 
