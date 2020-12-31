@@ -27,9 +27,8 @@
         </div>
         <div *ngIf="mode==1" [innerHTML]="mainOutlet.text | marked"></div>
 
-        <div *ngIf="mode==2">
-            <app-falsehood-search></app-falsehood-search>
-        </div>
+        <app-falsehood-search></app-falsehood-search>
+        
     </div>
 
 </div>

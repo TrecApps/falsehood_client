@@ -42,6 +42,9 @@ export class PublicFigureComponent implements OnInit {
 
     this.mode = 0;
     this.createNew = false;
+
+    this.searchComponent = new FalsehoodSearchComponent(search);
+    this.publicSearchComponent = new PublicFalsehoodSearchComponent(search);
   }
 
   ngOnInit(): void {

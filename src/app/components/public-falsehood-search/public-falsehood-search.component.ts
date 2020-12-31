@@ -29,8 +29,11 @@ export class PublicFalsehoodSearchComponent implements OnInit {
 
   initializeList(searchObj: SearchPublicFalsehood) {
     this.searcher.searchPublicFalsehoods(searchObj).then((value:PublicFalsehood[])=> {
+      console.log("Retrieved Values of {}", value);
       this.falsehoods = value;
       this.falsehood = null;
+    }).catch((reason)=> {
+
     });
   }
 }

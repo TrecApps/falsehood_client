@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { SearchPublicFalsehood } from 'src/app/models/publicFalsehood';
 import { ApproveServiceService } from 'src/app/services/approve-service.service';
 import { SearchService } from 'src/app/services/search.service';
@@ -42,6 +42,7 @@ export class RegionComponent implements OnInit {
 
     this.searchText = "";
     this.searchRegion = [];
+    this.searchComponent = new PublicFalsehoodSearchComponent(search);
    }
 
   ngOnInit() {
@@ -54,6 +55,7 @@ export class RegionComponent implements OnInit {
     if(this.mode == 2 && this.mainRegion) {
       let searchObj = new SearchPublicFalsehood();
       searchObj.region = this.mainRegion.region;
+      console.log(searchObj);
 
       this.searchComponent.initializeList(searchObj);
     }

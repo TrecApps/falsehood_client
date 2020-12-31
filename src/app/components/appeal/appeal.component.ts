@@ -3,6 +3,7 @@ import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular
 import { FalsehoodAppeal, FalsehoodAppealEntry, FalsehoodAppealSignature } from 'src/app/models/appeal';
 import { FullFalsehood } from 'src/app/models/falsehoods';
 import { FullPublicFalsehood } from 'src/app/models/publicFalsehood';
+import { SearchService } from 'src/app/services/search.service';
 import { TokenService } from 'src/app/services/token.service';
 import { environment } from 'src/environments/environment';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
@@ -35,11 +36,14 @@ export class AppealComponent implements OnInit, OnChanges  {
   @ViewChild(FalsehoodSearchComponent) searchMedComponent: FalsehoodSearchComponent;
 
 
-  constructor(private client: HttpClient, private tokenService: TokenService) { 
+  constructor(private client: HttpClient, private tokenService: TokenService, private search: SearchService) { 
     this.ClearNewAppeal();
     this.currentAppeal = null;
     this.desiredAppealId = new Number();
     this.attemptedSign = false;
+
+    this.searchMedComponent = new FalsehoodSearchComponent(search);
+    this.searchPubComponent = new PublicFalsehoodSearchComponent(search);
   }
   ngOnChanges(changes: SimpleChanges): void {
     // throw new Error('Method not implemented.');

@@ -39,6 +39,8 @@ export class InstitutionComponent implements OnInit {
 
     this.searchInst = [];
     this.searchText = "";
+
+    this.searchComponent = new PublicFalsehoodSearchComponent(search);
    }
 
   ngOnInit() {

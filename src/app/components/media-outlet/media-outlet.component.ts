@@ -40,6 +40,8 @@ export class MediaOutletComponent implements OnInit {
     this.createNew = false;
 
     this.editYear = 2000;
+
+    this.searchComponent = new FalsehoodSearchComponent(search);
    }
 
   ngOnInit(): void {
