@@ -10,6 +10,7 @@ import { MediaOutletComponent } from './components/media-outlet/media-outlet.com
 import { FalsehoodComponent } from './components/falsehood/falsehood.component';
 import { PublicFalsehoodComponent } from './components/public-falsehood/public-falsehood.component';
 import { AppealComponent } from './components/appeal/appeal.component';
+import { SubmittedFalsehoodsComponent } from './components/submitted-falsehoods/submitted-falsehoods.component';
 
 const routes: Routes = [
 	{ path: 'Welcome', component: WelcomeComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'Falsehoods', component: FalsehoodComponent},
     { path: 'PublicFalsehoods', component: PublicFalsehoodComponent},
     { path: 'Appeal', component: AppealComponent },
+    { path: 'Submitted', component: SubmittedFalsehoodsComponent},
     { path: '',   redirectTo: '/Welcome', pathMatch: 'full'}
 ];
 
