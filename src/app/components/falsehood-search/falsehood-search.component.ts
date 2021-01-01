@@ -33,4 +33,11 @@ export class FalsehoodSearchComponent implements OnInit {
       this.falsehood = null;
     });
   }
+
+  initializeSubmittedList(page:number, size:number) {
+    this.searcher.searchSubmittedFalsehoods(size, page).then((value:Falsehood[])=> {
+      this.falsehoods = value;
+      this.falsehood = null;
+    });
+  }
 }

@@ -28,10 +28,56 @@ export class SearchService {
     return ret;
   }
 
+  async searchRejectedFalsehoods(searchObj: FalsehoodSearchObject): Promise<Falsehood[]> {
+    
+    let ret: Falsehood[];
+    await this.httpClient.post(environment.FALSEHOOD_URL + "Falsehood/searchRejected", searchObj).toPromise()
+      .then((falsehoods: Falsehood[]) => {
+        ret = falsehoods;
+      }).catch((reason)=> {
+        alert(reason);
+      });
+    return ret;
+  }
+
+  async searchSubmittedFalsehoods(size:number, page: number) {
+    let ret: Falsehood[];
+    await this.httpClient.get(environment.FALSEHOOD_URL + `Falsehood/searchSubmitted?size=${size}&page=${page}`).toPromise()
+      .then((falsehoods: Falsehood[]) => {
+        ret = falsehoods;
+      }).catch((reason)=> {
+        alert(reason);
+      });
+    return ret;
+  }
+
   async searchPublicFalsehoods(searchObj: SearchPublicFalsehood): Promise<PublicFalsehood[]> {
     
     let ret: PublicFalsehood[];
     await this.httpClient.post(environment.FALSEHOOD_URL + "PublicFalsehood/searchConfirmed", searchObj).toPromise()
+      .then((falsehoods: PublicFalsehood[]) => {
+        ret = falsehoods;
+      }).catch((reason)=> {
+        alert(reason);
+      });
+    return ret;
+  }
+
+  async searchRejectedPublicFalsehoods(searchObj: SearchPublicFalsehood): Promise<PublicFalsehood[]> {
+    
+    let ret: PublicFalsehood[];
+    await this.httpClient.post(environment.FALSEHOOD_URL + "PublicFalsehood/searchRejected", searchObj).toPromise()
+      .then((falsehoods: PublicFalsehood[]) => {
+        ret = falsehoods;
+      }).catch((reason)=> {
+        alert(reason);
+      });
+    return ret;
+  }
+
+  async searchSubmittedPublicFalsehoods(size:number, page: number) {
+    let ret: PublicFalsehood[];
+    await this.httpClient.get(environment.FALSEHOOD_URL + `PublicFalsehood/searchSubmitted?size=${size}&page=${page}`).toPromise()
       .then((falsehoods: PublicFalsehood[]) => {
         ret = falsehoods;
       }).catch((reason)=> {
