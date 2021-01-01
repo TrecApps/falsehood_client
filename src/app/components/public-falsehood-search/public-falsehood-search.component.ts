@@ -39,9 +39,14 @@ export class PublicFalsehoodSearchComponent implements OnInit {
     
   }
   initializeSubmittedList(page:number, size:number) {
-      this.searcher.searchSubmittedPublicFalsehoods(size, page).then((value:PublicFalsehood[])=> {
-        this.falsehoods = value;
-        this.falsehood = null;
-      });
-    }
+    this.searcher.searchSubmittedPublicFalsehoods(size, page).then((value:PublicFalsehood[])=> {
+      this.falsehoods = value;
+      this.falsehood = null;
+    });
+  }
+
+  nullifyList() {
+    this.falsehoods = null;
+    this.falsehood = null;
+  }
 }

@@ -40,4 +40,9 @@ export class FalsehoodSearchComponent implements OnInit {
       this.falsehood = null;
     });
   }
+
+  nullifyList() {
+    this.falsehoods = null;
+    this.falsehood = null;
+  }
 }

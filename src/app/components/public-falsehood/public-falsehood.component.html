@@ -2,7 +2,8 @@
 
 <div *ngIf="!createNew">
     <button class="btn bg-info" (click)="startCreateNew()">Create New Falsehood</button>
-    <button class="btn bg-info" (click)="startSearch()">Search Falsehoods</button><br>
+    <button class="btn bg-info" (click)="startSearch()">Search Falsehoods</button>
+    <button class="btn bg-info" (click)="startSubmittedSearch()">Submitted Falsehoods</button><br>
     <div *ngIf="doSearch">
         <label>Search Falsehood</label><br>
         <label>By Date?</label>
@@ -103,9 +104,19 @@
         <button class="btn bg-info" (click)="submitSearch()">Submit Search</button>
     </div>
 
+    <div *ngIf="doSubmitted">
+        <label>Page Number</label>
+        <input type="number" class="form-control" min="0" [(ngModel)]="submittedPage"><br>
+        <label>Page Size</label>
+        <input type="number" class="form-control" min=10 max=100 [(ngModel)]="submitSize"><br>
+        <button class="btn bg-info" (click)="getSubmittedFalsehoods()">Search Submitted</button>
+    </div>
+
+
+
     <app-public-falsehood-search></app-public-falsehood-search>
 
-    <div *ngIf="mainFalsehood">
+    <div *ngIf="searchComponent.falsehood">
         <table>
             <tr>
                 <th>Fields</th>
@@ -145,7 +156,16 @@
             </tr>
         </table>
 
-        <div [innerHTML]="mainFalsehood.contents | marked"></div>
+        <div *ngIf="(searchComponent.falsehood.metadata.status == 0 || searchComponent.falsehood.metadata.status == 2) && tokenService.credit > 60">
+            <label>Reason for Approving or Rejecting</label>
+
+            <textarea [(ngModel)]="submitReason"></textarea> 
+
+            <button class="btn bg-info" (click)="Approve(true)">Approve Falsehood</button><br>
+            <button class="btn bg-info" (click)="Approve(false)"> Reject Falsehood</button><br>
+        </div>
+
+        <div [innerHTML]="searchComponent.falsehood.contents | marked"></div>
     </div>
 
 </div>

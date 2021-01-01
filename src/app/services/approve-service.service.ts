@@ -70,4 +70,20 @@ export class ApproveServiceService {
     return ret;
   }
 
+  async approveFalsehood(app:boolean, id: number, reason: string) {
+    await this.httpClient.put(environment.FALSEHOOD_URL + `Update/Falsehood/${app ? 'Approve' : 'Reject'}`,
+     {falsehood: id, comment: reason},
+     {headers: this.tokenService.httpHeaders}).toPromise().catch((reason)=>{
+      alert(reason.message || reason.error.message);
+     });
+  }
+
+  async approvePublicFalsehood(app:boolean, id: number, reason: string) {
+    await this.httpClient.put(environment.FALSEHOOD_URL + `Update/PublicFalsehood/${app ? 'Approve' : 'Reject'}`,
+     {falsehood: id, comment: reason},
+     {headers: this.tokenService.httpHeaders}).toPromise().catch((reason)=>{
+      alert(reason.message || reason.error.message);
+     });
+  }
+
 }

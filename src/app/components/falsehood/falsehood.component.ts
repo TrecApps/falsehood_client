@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Falsehood, FalsehoodSearchObject, FullFalsehood } from 'src/app/models/falsehoods';
 import { MediaOutlet } from 'src/app/models/mediaOutlet';
 import { PublicFigure } from 'src/app/models/publicFigure';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SubmitService } from 'src/app/services/submit.service';
+import { TokenService } from 'src/app/services/token.service';
 import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 
@@ -26,20 +28,33 @@ export class FalsehoodComponent implements OnInit {
   createNew: boolean;
   doSearch:boolean;
 
+    // Handling Submitted Falsehoods
+    doSubmitted: boolean;
+    submittedPage: number;
+    submitSize: number;
+    submitReason: string;
+  tokenService: TokenService;
+
   // Resources for creating new Falsehood
   newFalsehood: FullFalsehood;
 
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
 
-  constructor(private searchService: SearchService, private submitter: SubmitService) { 
+  constructor(private searchService: SearchService, private submitter: SubmitService,
+    tokenService: TokenService, private approveService: ApproveServiceService) { 
     this.createNew = this.doSearch = false;
     this.search = new FalsehoodSearchObject();
+    this.tokenService = tokenService;
   }
   // Sub Search methods
   startSearch() {
     this.doSearch = true;
+    this.doSubmitted = false;
   }
 
+  Approve(app: boolean) {
+    this.approveService.approveFalsehood(app, this.searchComponent.falsehood.metadata.id.valueOf(), this.submitReason);
+  }
 
   async onSearchOutlet(event:any){
     let p = this.searchService.searchMediaOutlets(event.target.value)
@@ -112,4 +127,13 @@ export class FalsehoodComponent implements OnInit {
     this.dateSearchMode = val;
   }
 
+  // Methds For handling Submitted falsehoods
+  startSubmittedSearch() {
+    this.doSearch = false;
+    this.doSubmitted = true;
+  }
+  
+  getSubmittedFalsehoods(){
+    this.searchComponent.initializeSubmittedList(this.submittedPage, this.submitSize);
+  }
 }

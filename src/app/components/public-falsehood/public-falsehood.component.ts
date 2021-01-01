@@ -6,6 +6,8 @@ import { PublicFigure } from 'src/app/models/publicFigure';
 import { SearchService } from 'src/app/services/search.service';
 import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
 import { SubmitService } from 'src/app/services/submit.service';
+import { TokenService } from 'src/app/services/token.service';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
 
 @Component({
   selector: 'app-public-falsehood',
@@ -31,16 +33,37 @@ export class PublicFalsehoodComponent implements OnInit {
   // Resources for creating new Falsehood
   newFalsehood: FullPublicFalsehood;
 
+  // Handling Submitted Falsehoods
+  doSubmitted: boolean;
+  submittedPage: number;
+  submitSize: number;
+  submitReason: string;
+
+  tokenService: TokenService;
+
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
 
-  constructor(private searchService: SearchService, private submitter: SubmitService) { 
+  constructor(private searchService: SearchService, private submitter: SubmitService,
+     tokenService: TokenService, private approveService: ApproveServiceService) { 
     this.createNew = this.doSearch = false;
     this.search = new SearchPublicFalsehood();
+
+    this.doSubmitted = false;
+    this.submitSize = 20;
+    this.submittedPage = 0;
+
+    this.tokenService = tokenService;
+    this.submitReason = "";
+  }
+
+  Approve(app: boolean) {
+    this.approveService.approvePublicFalsehood(app, this.mainFalsehood.metadata.id.valueOf(), this.submitReason);
   }
 
   // Sub Search methods
   startSearch() {
     this.doSearch = true;
+    this.doSubmitted = false;
   }
 
   async onSearchAuthor(event:any){
@@ -121,5 +144,15 @@ export class PublicFalsehoodComponent implements OnInit {
 
   setDateSearchMode(val: number) {
     this.dateSearchMode = val;
+  }
+
+  // Methds For handling Submitted falsehoods
+  startSubmittedSearch() {
+    this.doSearch = false;
+    this.doSubmitted = true;
+  }
+
+  getSubmittedFalsehoods(){
+    this.searchComponent.initializeSubmittedList(this.submittedPage, this.submitSize);
   }
 }
