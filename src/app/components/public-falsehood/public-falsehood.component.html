@@ -257,11 +257,12 @@
     <div [innerHTML]="newFalsehood.contents | marked"></div>
     <br>
 
-    <label>Tags (Seperate Terms by line)</label>
-    <textarea [(ngModel)]="newFalsehood.keywords"></textarea>
+    <label>Tags (Seperate Terms by line), max character limit is 400</label>
+    <textarea [(ngModel)]="newFalsehood.metadata.tags" (input)="inspectTagsField()"></textarea>
     <br>
   
-    <button class="btn bg-info" (click)="submitNewFalsehod()">Submit</button>
+    <h5 #pfTagWarming hidden>Tag field is {{newFalsehood.metadata.tags.length - 400}} over the character limit!</h5>
+    <button #pfNewSubmit class="btn bg-info" (click)="submitNewFalsehod()">Submit</button>
     <button class="btn bg-info" (click)="stopCreateNew()">Cancel</button>
 
 </div>

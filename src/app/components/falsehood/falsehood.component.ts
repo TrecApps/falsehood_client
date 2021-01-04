@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Falsehood, FalsehoodSearchObject, FullFalsehood } from 'src/app/models/falsehoods';
 import { MediaOutlet } from 'src/app/models/mediaOutlet';
 import { PublicFigure } from 'src/app/models/publicFigure';
@@ -39,12 +39,15 @@ export class FalsehoodComponent implements OnInit {
   newFalsehood: FullFalsehood;
 
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
-
+  @ViewChild('fTagWarning') warningEl: ElementRef;
+  @ViewChild('fNewSubmit') submitEl: ElementRef;
   constructor(private searchService: SearchService, private submitter: SubmitService,
-    tokenService: TokenService, private approveService: ApproveServiceService) { 
+    tokenService: TokenService, private approveService: ApproveServiceService,
+    searchComponent: FalsehoodSearchComponent) { 
     this.createNew = this.doSearch = false;
     this.search = new FalsehoodSearchObject();
     this.tokenService = tokenService;
+    this.searchComponent = searchComponent;
   }
   // Sub Search methods
   startSearch() {
@@ -135,5 +138,15 @@ export class FalsehoodComponent implements OnInit {
   
   getSubmittedFalsehoods(){
     this.searchComponent.initializeSubmittedList(this.submittedPage, this.submitSize);
+  }
+
+  inspectTagsField() {
+    if(this.newFalsehood.metadata.tags.length > 400) {
+      this.warningEl.nativeElement.hidden = false;
+      this.submitEl.nativeElement.hidden = true;
+    } else {
+      this.warningEl.nativeElement.hidden = true;
+      this.submitEl.nativeElement.hidden = false;
+    }
   }
 }

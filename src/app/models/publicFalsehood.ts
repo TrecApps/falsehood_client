@@ -29,10 +29,11 @@ export class PublicFalsehood {
     institution: Institution;
     severity: Number;
     dateMade: Date;
+    tags: String;
 }
 
 export class FullPublicFalsehood {
     contents: String;
     metadata: PublicFalsehood;
-    keywords: String;
+    // keywords: String;
 }

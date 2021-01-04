@@ -27,10 +27,11 @@ export class Falsehood {
     author2: PublicFigure;
     dateMade: Date;
     contentId: String;
+    tags: String;
 };
 
 export class FullFalsehood {
     contents: String;
     metadata: Falsehood;
-    keywords: String;
+    // keywords: String;
 };

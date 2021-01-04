@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SearchPublicFalsehood, FullPublicFalsehood, PublicFalsehood } from 'src/app/models/publicFalsehood';
 import { Region } from 'src/app/models/region';
 import { Institution } from 'src/app/models/institution';
@@ -42,9 +42,11 @@ export class PublicFalsehoodComponent implements OnInit {
   tokenService: TokenService;
 
   @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
-
+  @ViewChild('pfTagWarning') warningEl: ElementRef;
+  @ViewChild('pfNewSubmit')  submitEl: ElementRef;
   constructor(private searchService: SearchService, private submitter: SubmitService,
-     tokenService: TokenService, private approveService: ApproveServiceService) { 
+     tokenService: TokenService, private approveService: ApproveServiceService,
+     searchComponent: PublicFalsehoodSearchComponent) { 
     this.createNew = this.doSearch = false;
     this.search = new SearchPublicFalsehood();
 
@@ -54,6 +56,7 @@ export class PublicFalsehoodComponent implements OnInit {
 
     this.tokenService = tokenService;
     this.submitReason = "";
+    this.searchComponent = searchComponent;
   }
 
   Approve(app: boolean) {
@@ -154,5 +157,15 @@ export class PublicFalsehoodComponent implements OnInit {
 
   getSubmittedFalsehoods(){
     this.searchComponent.initializeSubmittedList(this.submittedPage, this.submitSize);
+  }
+
+  inspectTagsField() {
+    if(this.newFalsehood.metadata.tags.length > 400) {
+      this.warningEl.nativeElement.hidden = false;
+      this.submitEl.nativeElement.hidden = true;
+    } else {
+      this.warningEl.nativeElement.hidden = true;
+      this.submitEl.nativeElement.hidden = false;
+    }
   }
 }

@@ -43,7 +43,7 @@ import { AppealComponent } from './components/appeal/appeal.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule,FalsehoodSearchComponent, PublicFalsehoodSearchComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
