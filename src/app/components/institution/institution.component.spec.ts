@@ -1,7 +1,12 @@
 import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
-
+import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
+import { SearchService } from 'src/app/services/search.service';
+import { SubmitService } from 'src/app/services/submit.service';
+import { TokenService } from 'src/app/services/token.service';
 import { InstitutionComponent } from './institution.component';
 
 describe('InstitutionComponent', () => {
@@ -10,10 +15,20 @@ describe('InstitutionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [
+        InstitutionComponent,
+        PublicFalsehoodSearchComponent
+      ],
       imports: [
-        AppModule
+        HttpClientTestingModule
         ],
-      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      providers: [ 
+        {provide: APP_BASE_HREF, useValue : '/' },
+        PublicFalsehoodSearchComponent,
+        TokenService,
+        SearchService,
+        SubmitService,
+        ApproveServiceService
       ]
   })
   .compileComponents();

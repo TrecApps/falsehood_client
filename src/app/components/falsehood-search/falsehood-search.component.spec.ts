@@ -1,6 +1,7 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
+import { SearchService } from 'src/app/services/search.service';
 
 import { FalsehoodSearchComponent } from './falsehood-search.component';
 
@@ -10,10 +11,13 @@ describe('FalsehoodSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations:[
+        FalsehoodSearchComponent
+      ],
       imports: [
         AppModule
         ],
-      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      providers: [ {provide: APP_BASE_HREF, useValue : '/' }, SearchService
       ]
   })
   .compileComponents();

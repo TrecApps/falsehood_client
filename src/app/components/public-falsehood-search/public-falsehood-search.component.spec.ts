@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
 import { PublicFalsehoodSearchComponent } from './public-falsehood-search.component';
 import { AppModule } from 'src/app/app.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SearchService } from 'src/app/services/search.service';
 
 
 describe('PublicFalsehoodSearchComponent', () => {
@@ -11,10 +13,11 @@ describe('PublicFalsehoodSearchComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
+      declarations: [PublicFalsehoodSearchComponent],
       imports: [
-        AppModule
+        HttpClientTestingModule
       ],
-      providers: [{provide:APP_BASE_HREF, useValue:'/'}]
+      providers: [{provide:APP_BASE_HREF, useValue:'/'}, SearchService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PublicFalsehoodSearchComponent);

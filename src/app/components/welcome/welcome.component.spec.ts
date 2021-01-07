@@ -1,4 +1,5 @@
 import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
 
@@ -10,10 +11,13 @@ describe('WelcomeComponent', () => {
 
   beforeEach((async() => {
     await TestBed.configureTestingModule({
+      declarations: [WelcomeComponent],
       imports: [
-        AppModule
+        HttpClientTestingModule
         ],
-      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      providers: [
+        {provide: APP_BASE_HREF, useValue : '/' },
+        
       ]
   })
   .compileComponents();

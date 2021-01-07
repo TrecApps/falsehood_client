@@ -1,7 +1,11 @@
 import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ElementRef } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router, RouterModule } from '@angular/router';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AppModule } from 'src/app/app.module';
+import { TokenService } from 'src/app/services/token.service';
 
 import { LoginComponent } from './login.component';
 
@@ -11,12 +15,16 @@ describe('LoginComponent', () => {
 
   beforeEach((async () => {
     await TestBed.configureTestingModule({
+      declarations: [LoginComponent],
       imports: [
-        AppModule
-        
+        HttpClientTestingModule,
+        AppRoutingModule,
+        RouterModule
         ],
         // declarations: [ElementRef],
-      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      providers: [ 
+        {provide: APP_BASE_HREF, useValue : '/' },
+        TokenService
       ]
   })
   .compileComponents();

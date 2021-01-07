@@ -1,7 +1,12 @@
 import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
-
+import { FalsehoodSearchComponent } from '../falsehood-search/falsehood-search.component';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
+import { SearchService } from 'src/app/services/search.service';
+import { SubmitService } from 'src/app/services/submit.service';
+import { TokenService } from 'src/app/services/token.service';
 import { MediaOutletComponent } from './media-outlet.component';
 
 describe('MediaOutletComponent', () => {
@@ -10,10 +15,17 @@ describe('MediaOutletComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations:[MediaOutletComponent, FalsehoodSearchComponent],
       imports: [
-        AppModule
+        HttpClientTestingModule
         ],
-      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      providers: [ 
+        {provide: APP_BASE_HREF, useValue : '/' },
+        FalsehoodSearchComponent,
+        TokenService,
+        SearchService,
+        SubmitService,
+        ApproveServiceService
       ]
   })
   .compileComponents();

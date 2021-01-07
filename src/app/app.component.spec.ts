@@ -3,15 +3,22 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
+import { HttpClientTestingModule,
+  HttpTestingController } from '@angular/common/http/testing';
+import { TokenService } from './services/token.service';
+import { MarkedPipe } from './resources/marked.pipe';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      // declarations: [ LoginComponent ],
+      declarations: [ AppComponent,
+        MarkedPipe ],
       imports: [
-        AppModule
-        ],
-      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+        HttpClientTestingModule
+      ],
+      providers: [
+        {provide: APP_BASE_HREF, useValue : '/' },
+        TokenService
       ]
   })
   .compileComponents();

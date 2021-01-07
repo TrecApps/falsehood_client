@@ -4,8 +4,15 @@ import { AppModule } from 'src/app/app.module';
 import { Institution } from 'src/app/models/institution';
 import { PublicFigure } from 'src/app/models/publicFigure';
 import { Region } from 'src/app/models/region';
-
+import { PublicFalsehoodSearchComponent } from '../public-falsehood-search/public-falsehood-search.component';
+import { ApproveServiceService } from 'src/app/services/approve-service.service';
+import { SearchService } from 'src/app/services/search.service';
+import { SubmitService } from 'src/app/services/submit.service';
+import { TokenService } from 'src/app/services/token.service';
 import { PublicFalsehoodComponent } from './public-falsehood.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 describe('PublicFalsehoodComponent', () => {
   let component: PublicFalsehoodComponent;
@@ -13,10 +20,19 @@ describe('PublicFalsehoodComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [PublicFalsehoodComponent,PublicFalsehoodSearchComponent],
       imports: [
-        AppModule
+        HttpClientTestingModule,
+        FormsModule,
+        BrowserModule
         ],
-      providers: [ {provide: APP_BASE_HREF, useValue : '/' }
+      providers: [ 
+        {provide: APP_BASE_HREF, useValue : '/' },
+        TokenService,
+        SearchService,
+        SubmitService,
+        ApproveServiceService,
+        PublicFalsehoodSearchComponent
       ]
   })
   .compileComponents();
