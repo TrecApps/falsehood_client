@@ -2,6 +2,7 @@ import { Severity } from './Severity';
 import { MediaOutlet } from './mediaOutlet';
 import { CommonLie } from './commonLie';
 import { PublicFigure } from './publicFigure';
+import { EventObj, VerdictObj } from './falsehoodEvents';
 
 export class FalsehoodSearchObject
 {
@@ -33,5 +34,6 @@ export class Falsehood {
 export class FullFalsehood {
     contents: String;
     metadata: Falsehood;
-    // keywords: String;
+    verdicts: VerdictObj[];
+    events: EventObj[];
 };

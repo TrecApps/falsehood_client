@@ -1,4 +1,5 @@
 import { CommonLie } from './commonLie';
+import { EventObj, VerdictObj } from './falsehoodEvents';
 import { Institution } from './institution';
 import { PublicFigure } from './publicFigure';
 import { Region } from './region';
@@ -35,5 +36,6 @@ export class PublicFalsehood {
 export class FullPublicFalsehood {
     contents: String;
     metadata: PublicFalsehood;
-    // keywords: String;
+    verdicts: VerdictObj[];
+    events: EventObj[];
 }
