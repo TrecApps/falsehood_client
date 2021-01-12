@@ -31,8 +31,9 @@ export class RegionComponent implements OnInit {
 
   searchRegion: Region[];
 
-  @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent
-  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, private approveService: ApproveServiceService) {
+  @ViewChild(PublicFalsehoodSearchComponent) searchComponent: PublicFalsehoodSearchComponent;
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, private approveService: ApproveServiceService,
+    searchComponent: PublicFalsehoodSearchComponent) {
     this.mode = 0;
     this.createNew = false;
 
@@ -42,7 +43,7 @@ export class RegionComponent implements OnInit {
 
     this.searchText = "";
     this.searchRegion = [];
-    this.searchComponent = new PublicFalsehoodSearchComponent(search);
+    this.searchComponent = searchComponent;
    }
 
   ngOnInit() {

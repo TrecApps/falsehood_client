@@ -1,3 +1,4 @@
+import { assertNotNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FalsehoodSearchObject } from 'src/app/models/falsehoods';
 import { MediaOutlet, MediaOutletEntry } from 'src/app/models/mediaOutlet';
@@ -29,7 +30,8 @@ export class MediaOutletComponent implements OnInit {
 
   @ViewChild(FalsehoodSearchComponent) searchComponent: FalsehoodSearchComponent;
 
-  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, private approveService: ApproveServiceService) {
+  constructor(token: TokenService, private search: SearchService, private submitService:SubmitService, 
+    private approveService: ApproveServiceService, searchComponent: FalsehoodSearchComponent) {
     this.token = token;
 
     this.searchOutlets = [];
@@ -41,7 +43,8 @@ export class MediaOutletComponent implements OnInit {
 
     this.editYear = 2000;
 
-    this.searchComponent = new FalsehoodSearchComponent(search);
+    this.searchComponent = searchComponent;
+    console.log("SearchComponent is " + this.searchComponent);
    }
 
   ngOnInit(): void {
@@ -53,7 +56,8 @@ export class MediaOutletComponent implements OnInit {
     if(this.mode == 2 && this.mainOutlet.outlet?.outletId) {
       let searchObj = new FalsehoodSearchObject();
       searchObj.outlet = this.mainOutlet.outlet;
-
+      console.log("SearchComponent is on SetCall " + this.searchComponent);
+      console.log("edit year is " + this.editYear);
       this.searchComponent.initializeList(searchObj);
     }
   }

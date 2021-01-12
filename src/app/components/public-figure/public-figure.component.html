@@ -12,8 +12,8 @@
         </ul>
     </div>
 
-    <div *ngIf="mainFigure && mainFigure.figure">
-        <h3>Title: {{mainFigure.figure.firstname + mainFigure.figure.middleNames + mainFigure.figure.lastName}}</h3>
+    <div *ngIf="mainFigure">
+        <h3 *ngIf="mainFigure.figure">Title: {{mainFigure.figure.firstname + mainFigure.figure.middleNames + mainFigure.figure.lastName}}</h3>
     
         <button class="btn bg-info" (click)="setMode(1)">Wiki</button>
         <button class="btn bg-info" (click)="setMode(2)">Public Falsehoods</button>
@@ -28,12 +28,11 @@
 
         <div *ngIf="mode==1" [innerHTML]="mainFigure.text | marked"></div>
 
-        <div *ngIf="mode==2">
-            <app-public-falsehood-search></app-public-falsehood-search>
-        </div>
-        <div *ngIf="mode==3">
-            <app-falsehood-search></app-falsehood-search>
-        </div>
+        
+        <app-public-falsehood-search></app-public-falsehood-search>
+        
+        <app-falsehood-search></app-falsehood-search>
+        
     </div>
 
 </div>

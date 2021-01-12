@@ -10,6 +10,14 @@ import { SubmitService } from 'src/app/services/submit.service';
 import { TokenService } from 'src/app/services/token.service';
 import { environment } from 'src/environments/environment';
 import { PublicFigureComponent } from './public-figure.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { Falsehood } from 'src/app/models/falsehoods';
+import { PublicFalsehood } from 'src/app/models/publicFalsehood';
+import { PublicFigure, PublicFigureEntry } from 'src/app/models/publicFigure';
+import { MediaOutlet } from 'src/app/models/mediaOutlet';
+import { Region } from 'src/app/models/region';
+import { Institution } from 'src/app/models/institution';
 
 function delay(ms: number) {
   return new Promise( resolve => setTimeout(resolve, ms) );
@@ -20,6 +28,86 @@ describe('PublicFigureComponent', () => {
   let fixture: ComponentFixture<PublicFigureComponent>;
   let testController: HttpTestingController;
 
+  let mFalsehoods: Falsehood[] = [];
+  let pFalsehoods: PublicFalsehood[] = [];
+
+  beforeAll(()=> {
+    let pubfig1 = new PublicFigure();
+    pubfig1.approved = 1;
+    pubfig1.id = 1;
+    pubfig1.firstname = "Lord";
+    pubfig1.lastName = "Tormontrec";
+
+
+    let outlet = new MediaOutlet();
+    outlet.approved = 1;
+    outlet.foundationYear = 2022;
+    outlet.name = "Trec-News";
+    outlet.outletId = 1;
+
+    let region1 = new Region();
+    region1.approved = 1;
+    region1.id = 1;
+    region1.name = "Trectopolis";
+
+    let region2 = new Region();
+    region2.approved = 1;
+    region2.id = 2;
+    region2.name = "Trectopia";
+
+    let inst = new Institution();
+    inst.approved = 1;
+    inst.id = 1;
+    inst.name = "Trec-Apps";
+
+    let inst2 = new Institution();
+    inst2.approved = 1;
+    inst2.id = 2;
+    inst2.name = "Tormonscript";
+
+    mFalsehoods = [];
+
+    let falsehood = new Falsehood();
+    falsehood.author1 = pubfig1;
+    falsehood.contentId = "Article1";
+    falsehood.dateMade = new Date();
+    falsehood.id = 2;
+    falsehood.outlet = outlet;
+    falsehood.severity = 3;
+    mFalsehoods.push(falsehood);
+
+    falsehood = new Falsehood();
+    falsehood.author1 = pubfig1;
+    falsehood.contentId = "Article2";
+    falsehood.dateMade = new Date();
+    falsehood.id = 4;
+    falsehood.outlet = outlet;
+    falsehood.severity = 4;
+    mFalsehoods.push(falsehood);
+
+    pFalsehoods = [];
+
+    let pfalsehood = new PublicFalsehood();
+    pfalsehood.dateMade = new Date();
+    pfalsehood.id = 3;
+    pfalsehood.institution = inst;
+    pfalsehood.official = pubfig1;
+    pfalsehood.officialType = 0;
+    pfalsehood.region = region1;
+    pfalsehood.severity = 2;
+    pFalsehoods.push(pfalsehood);
+
+    pfalsehood = new PublicFalsehood();
+    pfalsehood.dateMade = new Date();
+    pfalsehood.id = 5;
+    pfalsehood.institution = inst2;
+    pfalsehood.official = pubfig1;
+    pfalsehood.officialType = 0;
+    pfalsehood.region = region2;
+    pfalsehood.severity = 1;
+    pFalsehoods.push(pfalsehood);
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
@@ -28,7 +116,9 @@ describe('PublicFigureComponent', () => {
         FalsehoodSearchComponent
       ],
       imports: [
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        FormsModule,
+        BrowserModule
         ],
       providers: [ 
         {provide: APP_BASE_HREF, useValue : '/' },
@@ -82,5 +172,36 @@ describe('PublicFigureComponent', () => {
     expect(component.createNew).toBeFalsy();
     expect(component.editContents).toEqual("");
     expect(component.editName).toEqual("");
+  });
+
+  it('Should search for a given institution', async () => {
+
+    component.mainFigure = new PublicFigureEntry();
+    component.mainFigure.text = "Public Figure contents!";
+    component.mainFigure.figure = new PublicFigure();
+    component.mainFigure.figure.approved = 1;
+    component.mainFigure.figure.id = 1;
+    component.mainFigure.figure.firstname = "Lord";
+    component.mainFigure.figure.lastName = "Tormontrec";
+
+    component.setMode(2);
+
+    let req = testController.expectOne(environment.FALSEHOOD_URL +
+      'PublicFalsehood/searchConfirmed', 'Should Have a call to search for Public falsehoods');
+    
+    req.flush(pFalsehoods);
+    await delay(100);
+    expect(component.publicSearchComponent.falsehood).toBeNull();
+    expect(component.publicSearchComponent.falsehoods).toBe(pFalsehoods);
+
+    component.setMode(3);
+
+    req = testController.expectOne(environment.FALSEHOOD_URL +
+      'Falsehood/searchConfirmed', 'Should Have a call to search for falsehoods');
+    
+    req.flush(mFalsehoods);
+    await delay(100);
+    expect(component.searchComponent.falsehood).toBeNull();
+    expect(component.searchComponent.falsehoods).toBe(mFalsehoods);
   });
 });
