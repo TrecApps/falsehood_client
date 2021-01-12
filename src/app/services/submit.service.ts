@@ -29,7 +29,8 @@ export class SubmitService {
     entry.region.name = name;
 
     let result:boolean;
-
+    let urlCall = environment.FALSEHOOD_URL + this.publicFalsehoodMapping + "/AddRegion";
+    console.log("Region Call is " + urlCall);
     await this.httpClient.post(environment.FALSEHOOD_URL + this.publicFalsehoodMapping + "/AddRegion",
       entry, {headers: this.tokenService.httpHeaders}
       ).toPromise().

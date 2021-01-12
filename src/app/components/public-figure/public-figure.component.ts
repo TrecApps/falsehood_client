@@ -72,7 +72,7 @@ export class PublicFigureComponent implements OnInit {
     this.createNew=false;
   }
 
-  addNewFig() {
+  async addNewFig() {
     this.submitService.submitPublicFigure(this.editName, this.editContents).then((res)=> {
       this.stopCreateNew();
       if(res) {

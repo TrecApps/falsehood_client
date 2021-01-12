@@ -58,7 +58,7 @@ export class InstitutionComponent implements OnInit {
 
   }
 
-  addNewInst() {
+  async addNewInst() {
     this.submitService.submitInstitution(this.editName, this.editContents).then((res)=>{
       this.stopCreateNew();
       if(res) {
@@ -73,6 +73,7 @@ export class InstitutionComponent implements OnInit {
 
   stopCreateNew() {
     this.editContents = "";
+    this.editName = "";
     this.createNew=false;
   }
 

@@ -62,8 +62,8 @@ export class RegionComponent implements OnInit {
 
   }
 
-  addNewReg() {
-    this.submitService.submitRegion(this.editName, this.editContents).then((res)=>{
+  async addNewReg() {
+    await this.submitService.submitRegion(this.editName, this.editContents).then((res)=>{
       this.stopCreateNew();
       if(res) {
         alert("Successfully Submitted Region Entry!");
