@@ -31,8 +31,10 @@ describe('PublicFigureComponent', () => {
   let mFalsehoods: Falsehood[] = [];
   let pFalsehoods: PublicFalsehood[] = [];
 
+  let pubfig1: PublicFigure;
+
   beforeAll(()=> {
-    let pubfig1 = new PublicFigure();
+    pubfig1 = new PublicFigure();
     pubfig1.approved = 1;
     pubfig1.id = 1;
     pubfig1.firstname = "Lord";
@@ -203,5 +205,33 @@ describe('PublicFigureComponent', () => {
     await delay(100);
     expect(component.searchComponent.falsehood).toBeNull();
     expect(component.searchComponent.falsehoods).toBe(mFalsehoods);
+  });
+
+  it('should search for the falsehoods with that institution', async () => {
+
+    let searchTerm = "Trec";
+    component.onSearchUpdate({target: {value: searchTerm}});
+
+    let req = testController.expectOne(environment.FALSEHOOD_URL + `PublicFigure/listByName/${searchTerm}`);
+
+    req.flush([pubfig1]);
+
+    await delay(100);
+    expect(component.searchFigures).toEqual([pubfig1]);
+  });
+
+  it('should set up the main Institution', async() => {
+    let contents = 'Tormontrec created this Service!';
+
+    let figEntry = new PublicFigureEntry();
+    figEntry.text = contents;
+    figEntry.figure = pubfig1;
+
+    component.getFigure(1);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "PublicFigure/id/1");
+    req.flush(figEntry);
+
+    await delay(100);
+    expect(component.mainFigure).toEqual(figEntry);
   });
 });

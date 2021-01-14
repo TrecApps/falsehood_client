@@ -28,6 +28,7 @@ describe('RegionComponent', () => {
   let testController: HttpTestingController;
 
   let falsehoods :PublicFalsehood[] = [];
+  let region1:Region;
   
   beforeAll(() => {
 
@@ -35,7 +36,7 @@ describe('RegionComponent', () => {
     inst.approved = 1;
     inst.id = 1;
     inst.name = "Trec-Apps";
-    let region1 = new Region();
+    region1 = new Region();
     region1.approved = 1;
     region1.id = 1;
     region1.name = "Trectopolis";
@@ -177,6 +178,34 @@ describe('RegionComponent', () => {
     await delay(100);
     expect(component.searchComponent.falsehood).toBeNull();
     expect(component.searchComponent.falsehoods).toBe(falsehoods);
+  });
+
+  it('should search for the falsehoods with that region', async () => {
+
+    let searchTerm = "Trec";
+    component.onSearchUpdate({target: {value: searchTerm}});
+
+    let req = testController.expectOne(environment.FALSEHOOD_URL + `PublicFalsehood/Regions/${searchTerm}`);
+
+    req.flush([region1]);
+
+    await delay(100);
+    expect(component.searchRegion).toEqual([region1]);
+  });
+
+  it('should set up the main Region', async() => {
+    let contents = 'Trec-Apps funded this Service!';
+
+    let regEntry = new RegionEntry();
+    regEntry.contents = contents;
+    regEntry.region = region1;
+
+    component.getRegion(1);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "PublicFalsehood/Region/1");
+    req.flush(regEntry);
+
+    await delay(100);
+    expect(component.mainRegion).toBe(regEntry);
   });
 
 });

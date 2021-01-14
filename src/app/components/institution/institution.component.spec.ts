@@ -25,10 +25,11 @@ describe('InstitutionComponent', () => {
   let testController: HttpTestingController;
 
   let falsehoods :PublicFalsehood[] = [];
+  let inst : Institution;
   
   beforeAll(() => {
 
-    let inst = new Institution();
+    inst = new Institution();
     inst.approved = 1;
     inst.id = 1;
     inst.name = "Trec-Apps";
@@ -161,6 +162,34 @@ describe('InstitutionComponent', () => {
     await delay(100);
     expect(component.searchComponent.falsehood).toBeNull();
     expect(component.searchComponent.falsehoods).toBe(falsehoods);
+  });
+
+  it('should search for the falsehoods with that institution', async () => {
+
+    let searchTerm = "Trec";
+    component.onSearchUpdate({target: {value: searchTerm}});
+
+    let req = testController.expectOne(environment.FALSEHOOD_URL + `PublicFalsehood/Institutions/${searchTerm}`);
+
+    req.flush([inst]);
+
+    await delay(100);
+    expect(component.searchInst).toEqual([inst]);
+  });
+
+  it('should set up the main Institution', async() => {
+    let contents = 'Trec-Apps funded this Service!';
+
+    let instEntry = new InstitutionEntry();
+    instEntry.contents = contents;
+    instEntry.institution = inst;
+
+    component.getInst(1);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "PublicFalsehood/Institution/1");
+    req.flush(instEntry);
+
+    await delay(100);
+    expect(component.mainInst).toBe(instEntry);
   });
 
 });

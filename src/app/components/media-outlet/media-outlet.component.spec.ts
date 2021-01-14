@@ -26,6 +26,7 @@ describe('MediaOutletComponent', () => {
   let testController: HttpTestingController;
 
   let falsehoods :Falsehood[] = [];
+  let outlet:MediaOutlet;
 
   beforeAll(()=> {
     let pubfig1 = new PublicFigure();
@@ -39,7 +40,7 @@ describe('MediaOutletComponent', () => {
     pubfig2.firstname = "Lord";
     pubfig2.lastName = "Trooper";
 
-    let outlet = new MediaOutlet();
+    outlet = new MediaOutlet();
     outlet.approved = 1;
     outlet.foundationYear = 2022;
     outlet.name = "Trec-News";
@@ -152,5 +153,33 @@ describe('MediaOutletComponent', () => {
     await delay(100);
     expect(component.searchComponent.falsehood).toBeNull();
     expect(component.searchComponent.falsehoods).toBe(falsehoods);
+  });
+
+  it('should search for the falsehoods with that Outlet', async () => {
+
+    let searchTerm = "Trec";
+    component.onSearchUpdate({target: {value: searchTerm}});
+
+    let req = testController.expectOne(environment.FALSEHOOD_URL + `Falsehood/outlet/${searchTerm}`);
+
+    req.flush([outlet]);
+
+    await delay(100);
+    expect(component.searchOutlets).toEqual([outlet]);
+  });
+
+  it('should set up the main Outlet', async() => {
+    let contents = 'Trec-News tells the truth!';
+
+    let outEntry = new MediaOutletEntry();
+    outEntry.text = contents;
+    outEntry.outlet = outlet;
+
+    component.getOutlet(1);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "Falsehood/outletId/1");
+    req.flush(outEntry);
+
+    await delay(100);
+    expect(component.mainOutlet).toBe(outEntry);
   });
 });
