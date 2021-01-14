@@ -2,9 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
 
+## Backend Servers
+
+This Project serves as the Client for [Trec-Apps false_hoods](https://github.com/TrecApps/false_hood). This Project further uses [Trec-Apps-User-Service](https://github.com/TrecApps/trec-apps-user-service) For authentication purposes. It is highly recommended that you have an instance of both of these services running when running this client project.
+
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve --proxy-config proxy.conf.json` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
