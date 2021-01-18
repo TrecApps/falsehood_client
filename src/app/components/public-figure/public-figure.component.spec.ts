@@ -234,4 +234,41 @@ describe('PublicFigureComponent', () => {
     await delay(100);
     expect(component.mainFigure).toEqual(figEntry);
   });
+
+  it('should approve and reject a public figure', async ()=> {
+    let tempFigure1 = new PublicFigure();
+    tempFigure1.approved = 0;
+    tempFigure1.id = 1;
+    tempFigure1.firstname = "Lord";
+    tempFigure1.lastName = "Tormontrec";
+
+    let tempFigureEntry1 = new PublicFigureEntry();
+    tempFigureEntry1.text = "Contents of 1";
+    tempFigureEntry1.figure = tempFigure1;
+
+    let tempFigure2 = new PublicFigure();
+    tempFigure2.approved = 0;
+    tempFigure2.id = 1;
+    tempFigure2.firstname = "Lord";
+    tempFigure2.lastName = "Tormontrec";
+
+    let tempFigureEntry2 = new PublicFigureEntry();
+    tempFigureEntry2.text = "Contents of 2";
+    tempFigureEntry2.figure = tempFigure2;
+
+    component.mainFigure = tempFigureEntry1;
+
+    component.approveFigure(true);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "PublicFigure/Approve");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainFigure.figure.approved).toEqual(1);
+
+    component.mainFigure = tempFigureEntry2;
+    component.approveFigure(false);
+    req = testController.expectOne(environment.FALSEHOOD_URL + "PublicFigure/Reject");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainFigure.figure.approved).toEqual(1);
+  });
 });

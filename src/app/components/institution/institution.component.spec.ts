@@ -192,4 +192,39 @@ describe('InstitutionComponent', () => {
     expect(component.mainInst).toBe(instEntry);
   });
 
+  it('should approve and reject a institution', async ()=> {
+    let tempInstitution1 = new Institution();
+    tempInstitution1.approved = 0;
+    tempInstitution1.id = 1;
+    tempInstitution1.name = "Trectopolis";
+
+    let tempInstitutionEntry1 = new InstitutionEntry();
+    tempInstitutionEntry1.contents = "Contents of 1";
+    tempInstitutionEntry1.institution = tempInstitution1;
+
+    let tempInstitution2 = new Institution();
+    tempInstitution2.approved = 0;
+    tempInstitution2.id = 2;
+    tempInstitution2.name = "Trectopolis";
+
+    let tempInstitutionEntry2 = new InstitutionEntry();
+    tempInstitutionEntry2.contents = "Contents of 2";
+    tempInstitutionEntry2.institution = tempInstitution2;
+
+    component.mainInst = tempInstitutionEntry1;
+
+    component.approveInst(true);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "Update/PublicFalsehood/ApproveInstitution");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainInst.institution.approved).toEqual(1);
+
+    component.mainInst = tempInstitutionEntry2;
+    component.approveInst(false);
+    req = testController.expectOne(environment.FALSEHOOD_URL + "Update/PublicFalsehood/RejectInstitution");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainInst.institution.approved).toEqual(1);
+  });
+
 });

@@ -182,4 +182,39 @@ describe('MediaOutletComponent', () => {
     await delay(100);
     expect(component.mainOutlet).toBe(outEntry);
   });
+
+  it('should approve and reject a media outlet', async ()=> {
+    let tempOutlet1 = new MediaOutlet();
+    tempOutlet1.approved = 0;
+    tempOutlet1.outletId = 1;
+    tempOutlet1.name = "Trectopolis";
+
+    let tempOutletEntry1 = new MediaOutletEntry();
+    tempOutletEntry1.text = "Contents of 1";
+    tempOutletEntry1.outlet = tempOutlet1;
+
+    let tempOutlet2 = new MediaOutlet();
+    tempOutlet2.approved = 0;
+    tempOutlet2.outletId = 2;
+    tempOutlet2.name = "Trectopolis";
+
+    let tempOutletEntry2 = new MediaOutletEntry();
+    tempOutletEntry2.text = "Contents of 2";
+    tempOutletEntry2.outlet = tempOutlet2;
+
+    component.mainOutlet = tempOutletEntry1;
+
+    component.approveOutlet(true);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "Update/Falsehood/ApproveOutlet");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainOutlet.outlet.approved).toEqual(1);
+
+    component.mainOutlet = tempOutletEntry2;
+    component.approveOutlet(false);
+    req = testController.expectOne(environment.FALSEHOOD_URL + "Update/Falsehood/RejectOutlet");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainOutlet.outlet.approved).toEqual(1);
+  });
 });

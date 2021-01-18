@@ -208,4 +208,39 @@ describe('RegionComponent', () => {
     expect(component.mainRegion).toBe(regEntry);
   });
 
+  it('should approve and reject a region', async ()=> {
+    let tempRegion1 = new Region();
+    tempRegion1.approved = 0;
+    tempRegion1.id = 1;
+    tempRegion1.name = "Trectopolis";
+
+    let tempRegionEntry1 = new RegionEntry();
+    tempRegionEntry1.contents = "Contents of 1";
+    tempRegionEntry1.region = tempRegion1;
+
+    let tempRegion2 = new Region();
+    tempRegion2.approved = 0;
+    tempRegion2.id = 2;
+    tempRegion2.name = "Trectopolis";
+
+    let tempRegionEntry2 = new RegionEntry();
+    tempRegionEntry2.contents = "Contents of 2";
+    tempRegionEntry2.region = tempRegion2;
+
+    component.mainRegion = tempRegionEntry1;
+
+    component.approveRegion(true);
+    let req = testController.expectOne(environment.FALSEHOOD_URL + "Update/PublicFalsehood/ApproveRegion");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainRegion.region.approved).toEqual(1);
+
+    component.mainRegion = tempRegionEntry2;
+    component.approveRegion(false);
+    req = testController.expectOne(environment.FALSEHOOD_URL + "Update/PublicFalsehood/RejectRegion");
+    req.flush(true);
+    await delay(100);
+    expect(component.mainRegion.region.approved).toEqual(1);
+  });
+
 });
