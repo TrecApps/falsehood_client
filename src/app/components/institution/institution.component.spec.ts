@@ -156,7 +156,7 @@ describe('InstitutionComponent', () => {
     component.setMode(2);
 
     let req = testController.expectOne(environment.FALSEHOOD_URL +
-      'PublicFalsehood/searchConfirmed', 'Should Have a call to search for falsehoods');
+      'PublicFalsehood/ByInstitution/1?page=0&size=20', 'Should Have a call to search for falsehoods');
     
     req.flush(falsehoods);
     await delay(100);

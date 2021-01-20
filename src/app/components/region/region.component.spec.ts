@@ -172,7 +172,7 @@ describe('RegionComponent', () => {
     component.setMode(2);
 
     let req = testController.expectOne(environment.FALSEHOOD_URL +
-      'PublicFalsehood/searchConfirmed', 'Should Have a call to search for falsehoods');
+      'PublicFalsehood/ByRegion/1?page=0&size=20', 'Should Have a call to search for falsehoods');
     
     req.flush(falsehoods);
     await delay(100);

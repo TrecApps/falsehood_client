@@ -50,10 +50,7 @@ export class InstitutionComponent implements OnInit {
     this.mode = m;
 
     if(this.mode == 2 && this.mainInst) {
-      let searchObj = new SearchPublicFalsehood();
-      searchObj.institution = this.mainInst.institution;
-
-      this.searchComponent.initializeList(searchObj);
+      this.searchComponent.initializeListByInstitution(this.mainInst.institution.id);
     }
 
   }

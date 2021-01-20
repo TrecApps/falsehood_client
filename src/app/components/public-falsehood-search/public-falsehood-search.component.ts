@@ -36,8 +36,24 @@ export class PublicFalsehoodSearchComponent implements OnInit {
 
     });
 
-    
   }
+
+  initializeListByRegion(id:Number) {
+    this.searcher.searchByRegion(id, 0, 20).then((value:PublicFalsehood[])=> {
+      console.log("Retrieved Values of {}", value);
+      this.falsehoods = value;
+      this.falsehood = null;
+    });
+  }
+
+  initializeListByInstitution(id:Number) {
+    this.searcher.searchByInstitution(id, 0, 20).then((value:PublicFalsehood[])=> {
+      console.log("Retrieved Values of {}", value);
+      this.falsehoods = value;
+      this.falsehood = null;
+    });
+  }
+
   initializeSubmittedList(page:number, size:number) {
     this.searcher.searchSubmittedPublicFalsehoods(size, page).then((value:PublicFalsehood[])=> {
       this.falsehoods = value;

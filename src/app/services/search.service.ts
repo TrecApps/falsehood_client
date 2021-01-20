@@ -110,6 +110,18 @@ export class SearchService {
     return ret;
   }
 
+  async searchByRegion(id:Number, page: Number, size:Number): Promise<PublicFalsehood[]>{
+    let ret: PublicFalsehood[];
+
+    await this.httpClient.get(environment.FALSEHOOD_URL + `PublicFalsehood/ByRegion/${id}?page=${page}&size=${size}`)
+      .toPromise().then((falsehoods: PublicFalsehood[])=>{
+        ret = falsehoods;
+      }).catch((reason)=> {
+        alert(reason);
+      });
+    return ret;
+  } 
+
   async searchInstitutions(searchTerm: String): Promise<Institution[]> {
     let ret: Institution[];
 
@@ -133,6 +145,18 @@ export class SearchService {
 
     return ret;
   }
+
+  async searchByInstitution(id:Number, page: Number, size:Number): Promise<PublicFalsehood[]>{
+    let ret: PublicFalsehood[];
+
+    await this.httpClient.get(environment.FALSEHOOD_URL + `PublicFalsehood/ByInstitution/${id}?page=${page}&size=${size}`)
+      .toPromise().then((falsehoods: PublicFalsehood[])=>{
+        ret = falsehoods;
+      }).catch((reason)=> {
+        alert(reason);
+      });
+    return ret;
+  } 
 
   async getFalsehood(id: Number) : Promise<FullFalsehood> {
     let ret: FullFalsehood;

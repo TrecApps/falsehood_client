@@ -54,11 +54,7 @@ export class RegionComponent implements OnInit {
     this.mode = m;
 
     if(this.mode == 2 && this.mainRegion) {
-      let searchObj = new SearchPublicFalsehood();
-      searchObj.region = this.mainRegion.region;
-      console.log(searchObj);
-
-      this.searchComponent.initializeList(searchObj);
+      this.searchComponent.initializeListByRegion(this.mainRegion.region.id);
     }
 
   }
