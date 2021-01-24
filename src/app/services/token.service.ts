@@ -36,7 +36,7 @@ export class TokenService {
 
         this.httpHeaders = new HttpHeaders({
           Authorization: this.userInfo.token.toString()
-        })
+        });
         console.log("Login Worked");
         ret = true;
       }).catch((reason) => {
@@ -48,7 +48,7 @@ export class TokenService {
       await this.httpClient.get(environment.FALSEHOOD_URL + "account/Details", {headers: this.httpHeaders}).toPromise().
         then((resp: number) => {this.credit = resp;});
       } else {
-        console.log("ogin DID NOT WORK!");
+        console.log("Login DID NOT WORK!");
       }
       return ret;
   }
@@ -59,7 +59,10 @@ export class TokenService {
       toPromise().
       then((resp: ReturnAccountObj) => {
         this.userInfo = resp;
-
+        this.httpHeaders = new HttpHeaders({
+          Authorization: this.userInfo.token.toString()
+        });
+        this.credit = 5;
         ret = true;
       }).catch(() => {
         ret = false;

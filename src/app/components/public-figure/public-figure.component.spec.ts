@@ -32,6 +32,7 @@ describe('PublicFigureComponent', () => {
   let pFalsehoods: PublicFalsehood[] = [];
 
   let pubfig1: PublicFigure;
+  let pubfig2: PublicFigure;
 
   beforeAll(()=> {
     pubfig1 = new PublicFigure();
@@ -39,6 +40,13 @@ describe('PublicFigureComponent', () => {
     pubfig1.id = 1;
     pubfig1.firstname = "Lord";
     pubfig1.lastName = "Tormontrec";
+
+    pubfig2 = new PublicFigure();
+    pubfig2.approved = 1;
+    pubfig2.id = 2;
+    pubfig2.firstname = "Lord";
+    pubfig2.middleNames = 'Johnathan';
+    pubfig2.lastName = "Tormontrec";
 
 
     let outlet = new MediaOutlet();
@@ -163,9 +171,17 @@ describe('PublicFigureComponent', () => {
     component.editName = "some Figure!";
     component.addNewFig();
     let req = testController.expectOne(environment.FALSEHOOD_URL + 
-      "PublicFigure/Add", "Should have submitted Public figure data");
+      "PublicFigure/Add", "Should have submitted Public figure data 1");
 
-    
+    req.flush(true);
+
+    await delay(100);
+
+    component.editContents = "Content about the Figure 2!";
+    component.editName = "some Public Figure!";
+    component.addNewFig();
+    req = testController.expectOne(environment.FALSEHOOD_URL + 
+      "PublicFigure/Add", "Should have submitted Public figure data 2");
 
     req.flush(true);
 
