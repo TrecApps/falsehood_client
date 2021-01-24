@@ -60,7 +60,7 @@ export class PublicFalsehoodComponent implements OnInit {
   }
 
   Approve(app: boolean) {
-    this.approveService.approvePublicFalsehood(app, this.mainFalsehood.metadata.id.valueOf(), this.submitReason);
+    this.approveService.approvePublicFalsehood(app, this.searchComponent.falsehood.metadata.id.valueOf(), this.submitReason);
   }
 
   // Sub Search methods
